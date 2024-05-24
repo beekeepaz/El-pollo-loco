@@ -24,6 +24,27 @@ h1 {
     color: rgb(61, 61, 38);
 }
 
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 300px;
+    background-color: rgba(114, 9, 9, 0.459);
+    border: 2px solid;
+    border-radius: 8px;
+    border-color: rgb(61, 61, 38);
+    color: rgb(255, 152, 0);
+}
+
+.single-line {
+    display: flex;
+}
+
+img.s-i-size {
+    width: 64px;
+}
+
 @font-face {
     font-family: Madfont-Thorns;
     src: url('../fonts/Madfont-Thorns/MADFB___.TTF');
