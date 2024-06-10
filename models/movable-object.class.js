@@ -18,9 +18,11 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if(this instanceof ThrowableObject) {
             return true;
-        } else {
+        } else if (this instanceof ChickenYellow)
+            return this.y < 352;
+        else {
             return this.y < 148;
-        }
+        } 
     }
 
     playAnimation(images) {

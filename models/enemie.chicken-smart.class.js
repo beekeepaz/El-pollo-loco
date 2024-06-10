@@ -11,15 +11,19 @@ class ChickenYellow extends MovableObject {
     constructor() {
         super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
 
-        this.x = 200 + Math.random() * 900;
+        this.x = 500 + Math.random() * 900;
         this.speed = 0.2 + Math.random() * 0.10;
         this.loadImages(this.IMAGES_WALKING);
+        this.applyGravity();
         this.animate();
     }
 
     animate() {
         setInterval(() => {
             this.moveLeft();
+            if (!this.isAboveGround()) {
+                this.jump();
+            }
         }, 1000 / 60);
 
         setInterval(() => {
