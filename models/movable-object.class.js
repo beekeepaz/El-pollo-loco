@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.2;
     energy = 100;
+    salsacoins = 0;
     lastHit = 0;
 
     applyGravity() {
@@ -49,6 +50,15 @@ class MovableObject extends DrawableObject {
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
+    }
+
+    collect() {
+        this.salsacoins += 5;
+        if (this.salsacoins > 100) {
+            this.salsacoins = 100;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
     }
 
     hit() {
