@@ -70,6 +70,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
+        this.checkDead(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
@@ -112,5 +113,9 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    deleteFromMap(mo) {
+        this.ctx.clearRect(mo.x, mo.y, mo.width, mo.height);
     }
 }

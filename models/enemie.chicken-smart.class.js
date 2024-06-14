@@ -9,7 +9,7 @@ class ChickenYellow extends MovableObject {
     ];
 
     constructor() {
-        super().loadImage('../img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        super().loadImage(this.IMAGES_WALKING[0]);
         this.mathRandom();
         this.loadImages(this.IMAGES_WALKING);
         this.applyGravity();
