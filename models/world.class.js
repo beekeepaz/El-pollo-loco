@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     statusBarCoin = new StatusBarCoin();
     statusBarSalsa = new StatusBarSalsa();
-    statusBar = new StatusBar();
+    // statusBar = new StatusBar();
     ThrowableObject = [];
 
     constructor(canvas) {
@@ -33,26 +33,26 @@ class World {
     }
 
     checkThrowObjects() {
-        if(this.keyboard.D) {
+        if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.ThrowableObject.push(bottle);
         }
     }
 
     checkCollisions() {
-            this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy) ) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                }
-            });
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            } 
+        });
     }
 
     checkCollectUp() {
         this.level.coins.forEach((coins) => {
-            if(this.character.isColliding(coins) ) {
+            if (this.character.isColliding(coins)) {
                 this.character.collect();
-                this.statusBarCoin.setPercentage(this.character.salsacoins);
+                this.statusBarCoin.setPercentage(this.level.salsacoins);
             }
         });
     }
@@ -70,7 +70,6 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
-        this.checkDead(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
@@ -92,7 +91,7 @@ class World {
     }
 
     addToMap(mo) {
-        if(mo.otherDirection) {
+        if (mo.otherDirection) {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
@@ -115,7 +114,9 @@ class World {
         this.ctx.restore();
     }
 
-    deleteFromMap(mo) {
-        this.ctx.clearRect(mo.x, mo.y, mo.width, mo.height);
-    }
+    // deleteFromMap(mo) {
+    //     if () {
+    //         this.ctx.clearRect(mo.x, mo.y, mo.width, mo.height);
+    //     }
+    // }
 }

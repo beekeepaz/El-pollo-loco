@@ -26,6 +26,12 @@ class MovableObject extends DrawableObject {
         } 
     }
 
+    isOnGround() {
+        if(this instanceof Character) {
+            return this.y = 148;
+        }
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -42,7 +48,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        return this.speedY = 30;
+        return this.speedY = 30; 
     }
 
     isColliding(mo) {

@@ -33,8 +33,7 @@ class Character extends MovableObject {
     IMAGES_HURT = [
         `../img/2_character_pepe/4_hurt/H-41.png`,
         `../img/2_character_pepe/4_hurt/H-42.png`,
-        `../img/2_character_pepe/4_hurt/H-43.png`,
-        ``
+        `../img/2_character_pepe/4_hurt/H-43.png`
     ];
     world;
     // walking_sound = new Audio("adiodatei");
@@ -45,9 +44,13 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.applyGravityChar();        
+        this.applyGravityChar();
         this.animate();
-        // this.speedY > 0
+        // this.setGround();
+    }
+
+    setGround() {
+        this.loadImage(this.IMAGES_WALKING[0]);
     }
 
     applyGravityChar() {
@@ -55,7 +58,9 @@ class Character extends MovableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } 
+            } else if (!this.isAboveGround() && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
+                this.loadImage(this.IMAGES_WALKING[0]);
+            }
         }, 1000 / 25);
     }
 
@@ -105,10 +110,10 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if(this.isHurt()) {
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING); 
+                this.playAnimation(this.IMAGES_JUMPING);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
@@ -117,9 +122,11 @@ class Character extends MovableObject {
         }, 100);
     }
 
+
+
     // gameOver() {
-    //     if(IMAGES_HURT === IMAGES_HURT.length -1) {
-    //         deleteFromMap()
+    //     if(this.IMAGES_DEAD = this.IMAGES_DEAD.length -1) {
+    //         this.deleteChar();
     //     }
     // }
 }
