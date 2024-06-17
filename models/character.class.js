@@ -58,10 +58,18 @@ class Character extends MovableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else if (!this.isAboveGround() && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT) {
+            } else if (this.setWalkingAnimation()) {
                 this.loadImage(this.IMAGES_WALKING[0]);
             }
         }, 1000 / 25);
+    }
+
+    setWalkingAnimation() {
+        return !this.isAboveGround() &&
+            !this.world.keyboard.LEFT &&
+            !this.world.keyboard.RIGHT &&
+            !this.isDead() &&
+            !this.isHurt();
     }
 
     animate() {
