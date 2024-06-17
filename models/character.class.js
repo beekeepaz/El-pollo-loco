@@ -46,7 +46,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.applyGravityChar();
         this.animate();
-        // this.setGround();
     }
 
     setGround() {
@@ -84,7 +83,6 @@ class Character extends MovableObject {
             this.keyLeft();
             this.keyJump();
             this.charPosition();
-
         }, 1000 / 60);
     }
 

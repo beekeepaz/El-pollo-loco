@@ -28,6 +28,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkCollectUp();
+            this.checkCollectUpS();
             this.checkThrowObjects();
         }, 200);
     }
@@ -44,7 +45,7 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-            } 
+            }
         });
     }
 
@@ -52,7 +53,16 @@ class World {
         this.level.coins.forEach((coins) => {
             if (this.character.isColliding(coins)) {
                 this.character.collect();
-                this.statusBarCoin.setPercentage(this.level.salsacoins);
+                this.statusBarCoin.setPercentage(this.character.salsacoins);
+            }
+        });
+    }
+
+    checkCollectUpS() {
+        this.level.salsabottle.forEach((salsabottle) => {
+            if (this.character.isColliding(salsabottle)) {
+                this.character.collectS();
+                this.statusBarSalsa.setPercentage(this.character.salsabottle);
             }
         });
     }
