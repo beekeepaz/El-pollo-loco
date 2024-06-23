@@ -50,21 +50,41 @@ class World {
     }
 
     checkCollectUp() {
-        this.level.coins.forEach((coins) => {
+        let updated = false;
+        for (let c = 0; c < this.level.coins.length; c++) {
+            let coins = this.level.coins[c];
             if (this.character.isColliding(coins)) {
                 this.character.collect();
-                this.statusBarCoin.setPercentage(this.character.salsacoins);
+                this.level.coins.splice(c, 1); 
+                updated = true; 
+                break; 
             }
-        });
+        }
+        if (updated) {
+            let collectedCoins = this.character.salsacoins; 
+            let maxCoins = 6; 
+            let percentage = Math.min((collectedCoins / maxCoins) * 100, 100);
+            this.statusBarCoin.setPercentage(percentage);
+        }
     }
 
     checkCollectUpS() {
-        this.level.salsabottle.forEach((salsabottle) => {
+        let updated = false;
+        for (let i = 0; i < this.level.salsabottle.length; i++) {
+            let salsabottle = this.level.salsabottle[i];
             if (this.character.isColliding(salsabottle)) {
                 this.character.collectS();
-                this.statusBarSalsa.setPercentage(this.character.salsabottle);
+                this.level.salsabottle.splice(i, 1); 
+                updated = true; 
+                break; 
             }
-        });
+        }
+        if (updated) {
+            let collectedBottles = this.character.salsabottle; 
+            let maxBottles = 7; 
+            let percentage = Math.min((collectedBottles / maxBottles) * 100, 100);
+            this.statusBarSalsa.setPercentage(percentage);
+        }
     }
 
     draw() {
