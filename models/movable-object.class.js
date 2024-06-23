@@ -4,8 +4,8 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.2;
     energy = 100;
-    salsacoins = 0;
-    salsabottle = 0;
+    salsacoins = 1;
+    salsabottle = 1;
     lastHit = 0;
     lastCollect = 0;
     lastCollectS = 0;
@@ -62,7 +62,7 @@ class MovableObject extends DrawableObject {
     }
 
     collect() {
-        this.salsacoins += 5;
+        this.salsacoins += 1;
         if (this.salsacoins > 100) {
             this.salsacoins = 100;
         } else {
@@ -71,7 +71,7 @@ class MovableObject extends DrawableObject {
     }
 
     collectS() {
-        this.salsabottle += 5;
+        this.salsabottle += 1;
         if (this.salsabottle > 100) {
             this.salsabottle = 100;
         } else {
