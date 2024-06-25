@@ -20,17 +20,17 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if(this instanceof ThrowableObject) {
+        if (this instanceof ThrowableObject) {
             return true;
         } else if (this instanceof ChickenYellow)
             return this.y < 352;
         else {
             return this.y < 148;
-        } 
+        }
     }
 
     isOnGround() {
-        if(this instanceof Character) {
+        if (this instanceof Character) {
             return this.y = 148;
         }
     }
@@ -51,14 +51,21 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        return this.speedY = 30; 
+        return this.speedY = 30;
     }
 
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
+        if (this instanceof Character) {
+            return this.x + this.width > mo.x &&
+                this.y + 100 + (this.height - 100) > mo.y &&
+                this.x < mo.x + mo.width &&
+                this.y + 100 < mo.y + mo.height;
+        } else {
+            return this.x + this.width > mo.x &&
+                this.y + this.height > mo.y &&
+                this.x < mo.x &&
+                this.y < mo.y + mo.height;
+        }
     }
 
     collect() {
