@@ -54,6 +54,24 @@ class MovableObject extends DrawableObject {
         return this.speedY = 30;
     }
 
+    jumpAt() {
+        return this.speedY = 30;
+
+    }
+
+    jumpChicken() {
+        return this.speedY = 16;
+    }
+
+    isCollidingAbove(enemy) {
+        if (!this.speedY == 0 && this.isAboveGround()) {
+            return this.x + this.width > enemy.x &&
+                this.y + this.height > enemy.y &&
+                this.x < enemy.x &&
+                this.y < enemy.y + enemy.height;
+        }
+    }
+
     isColliding(mo) {
         if (this instanceof Character) {
             return this.x + this.width > mo.x &&

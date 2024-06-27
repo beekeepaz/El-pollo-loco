@@ -25,7 +25,7 @@ class ChickenYellow extends MovableObject {
         setInterval(() => {
             this.moveLeft();
             if (!this.isAboveGround()) {
-                this.jump();
+                this.jumpChicken();
             }
         }, 1000 / 60);
 

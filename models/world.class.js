@@ -30,7 +30,19 @@ class World {
             this.checkCollectUp();
             this.checkCollectUpS();
             this.checkThrowObjects();
+            this.checkCollisionsAbove();
         }, 200);
+    }
+
+    checkCollisionsAbove() {
+        for (let e = 0; e < this.level.enemies.length; e++) {
+            let enemy = this.level.enemies[e];
+            if (this.character.isCollidingAbove(enemy)) {
+                this.level.enemies.splice(e, 1); 
+                this.character.jumpAt();
+                break; 
+            }
+        }
     }
 
     checkThrowObjects() {

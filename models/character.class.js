@@ -57,8 +57,11 @@ class Character extends MovableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            } else if (this.setWalkingAnimation()) {
-                this.loadImage(this.IMAGES_WALKING[0]);
+            } else {
+                if (this.setWalkingAnimation()) {
+                    this.loadImage(this.IMAGES_JUMPING[8]);
+                }
+                this.speedY = 0;
             }
         }, 1000 / 25);
     }
@@ -116,7 +119,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
+            } else if (this.isHurt() && !this.isCollidingAbove()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
