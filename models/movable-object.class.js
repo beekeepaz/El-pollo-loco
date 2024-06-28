@@ -63,8 +63,12 @@ class MovableObject extends DrawableObject {
         return this.speedY = 16;
     }
 
+    isJumping() {
+        return this.speedY != 0 && this.isAboveGround();
+    }
+    
     isCollidingAbove(enemy) {
-        if (!this.speedY == 0 && this.isAboveGround()) {
+        if (this.isJumping() && !this.isHurt()) {
             return this.x + this.width > enemy.x &&
                 this.y + this.height > enemy.y &&
                 this.x < enemy.x &&
@@ -103,7 +107,7 @@ class MovableObject extends DrawableObject {
             this.lastCollectS = new Date().getTime();
         }
     }
-
+ 
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
@@ -121,6 +125,14 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    checkDeadInstanz(enemy) {
+        if (enemy instanceof Chicken) {
+            enemy.isDeadChicken(); 
+        } else if (enemy instanceof ChickenYellow) {
+            enemy.isDeadChickenSmart();
+        }
     }
 
     // isColliding(obj) {

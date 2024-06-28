@@ -38,9 +38,14 @@ class World {
         for (let e = 0; e < this.level.enemies.length; e++) {
             let enemy = this.level.enemies[e];
             if (this.character.isCollidingAbove(enemy)) {
-                this.level.enemies.splice(e, 1); 
+                // enemy.isDeadChicken(); 
+                // enemy.isDeadChickenSmart();
+                enemy.checkDeadInstanz(enemy);
+                setTimeout(() => {
+                    this.level.enemies.splice(e, 1);
+                }, 1000);
                 this.character.jumpAt();
-                break; 
+                break;
             }
         }
     }
@@ -54,7 +59,7 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !this.character.isJumping()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -67,14 +72,14 @@ class World {
             let coins = this.level.coins[c];
             if (this.character.isColliding(coins)) {
                 this.character.collect();
-                this.level.coins.splice(c, 1); 
-                updated = true; 
-                break; 
+                this.level.coins.splice(c, 1);
+                updated = true;
+                break;
             }
         }
         if (updated) {
-            let collectedCoins = this.character.salsacoins; 
-            let maxCoins = 6; 
+            let collectedCoins = this.character.salsacoins;
+            let maxCoins = 6;
             let percentage = Math.min((collectedCoins / maxCoins) * 100, 100);
             this.statusBarCoin.setPercentage(percentage);
         }
@@ -86,14 +91,14 @@ class World {
             let salsabottle = this.level.salsabottle[i];
             if (this.character.isColliding(salsabottle)) {
                 this.character.collectS();
-                this.level.salsabottle.splice(i, 1); 
-                updated = true; 
-                break; 
+                this.level.salsabottle.splice(i, 1);
+                updated = true;
+                break;
             }
         }
         if (updated) {
-            let collectedBottles = this.character.salsabottle; 
-            let maxBottles = 7; 
+            let collectedBottles = this.character.salsabottle;
+            let maxBottles = 7;
             let percentage = Math.min((collectedBottles / maxBottles) * 100, 100);
             this.statusBarSalsa.setPercentage(percentage);
         }

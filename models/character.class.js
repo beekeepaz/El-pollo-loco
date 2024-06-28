@@ -131,8 +131,6 @@ class Character extends MovableObject {
         }, 100);
     }
 
-
-
     // gameOver() {
     //     if(this.IMAGES_DEAD = this.IMAGES_DEAD.length -1) {
     //         this.deleteChar();
