@@ -8,7 +8,7 @@ class World {
     statusBar = new StatusBar();
     statusBarCoin = new StatusBarCoin();
     statusBarSalsa = new StatusBarSalsa();
-    // statusBar = new StatusBar();
+    statusBarEndboss = new statusBarEndboss();
     ThrowableObject = [];
     maxBottles = 7;
     currentcollectbottle = 0;
@@ -146,6 +146,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarSalsa);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
