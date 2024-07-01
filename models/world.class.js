@@ -10,6 +10,8 @@ class World {
     statusBarSalsa = new StatusBarSalsa();
     // statusBar = new StatusBar();
     ThrowableObject = [];
+    maxBottles = 7;
+    currentcollectbottle = 0;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -30,6 +32,7 @@ class World {
             this.checkCollectUp();
             this.checkCollectUpS();
             this.checkThrowObjects();
+            this.checkThrowCollision();
             this.checkCollisionsAbove();
         }, 200);
     }
@@ -38,8 +41,6 @@ class World {
         for (let e = 0; e < this.level.enemies.length; e++) {
             let enemy = this.level.enemies[e];
             if (this.character.isCollidingAbove(enemy)) {
-                // enemy.isDeadChicken(); 
-                // enemy.isDeadChickenSmart();
                 enemy.checkDeadInstanz(enemy);
                 setTimeout(() => {
                     this.level.enemies.splice(e, 1);
@@ -51,10 +52,34 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.throwObjekt()) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.ThrowableObject.push(bottle);
+            let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
+            this.updateStatusBarSalsa(thrownbottles);
         }
+    }
+
+    checkThrowCollision() {
+        for (let t = 0; t < this.ThrowableObject.length; t++) {
+            let throwbottle = this.ThrowableObject[t];
+            if (this.character.isColliding(throwbottle)) {
+                throwbottle.checkDeadInstanz(this.level.enemies);
+                setTimeout(() => {
+                    this.level.enemies.splice(e, 1);
+                }, 1000);
+                break;
+            }
+        }
+    }
+
+    updateStatusBarSalsa(bottles) {
+        let percentage = Math.min((bottles / this.maxBottles) * 100, 100);
+        this.statusBarSalsa.setPercentage(percentage);
+    }
+
+    throwObjekt() {
+        return this.ThrowableObject.length + 1 < this.character.salsabottle;
     }
 
     checkCollisions() {
@@ -98,9 +123,10 @@ class World {
         }
         if (updated) {
             let collectedBottles = this.character.salsabottle;
-            let maxBottles = 7;
-            let percentage = Math.min((collectedBottles / maxBottles) * 100, 100);
-            this.statusBarSalsa.setPercentage(percentage);
+            this.currentcollectbottle = collectedBottles;
+            let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
+            this.updateStatusBarSalsa(thrownbottles);
+            console.log(this.currentcollectbottle);
         }
     }
 

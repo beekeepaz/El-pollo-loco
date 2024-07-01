@@ -8,8 +8,6 @@ class StatusBarSalsa extends DrawableObject {
         `../img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png`
     ];
 
-    percentage = 100;
-
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -19,6 +17,8 @@ class StatusBarSalsa extends DrawableObject {
         this.height = 60;
         this.setPercentage(0);
     }
+
+    
 
     setPercentage(percentage) {
         this.percentage = percentage;
