@@ -63,12 +63,19 @@ class World {
     checkThrowCollision() {
         for (let t = 0; t < this.ThrowableObject.length; t++) {
             let throwbottle = this.ThrowableObject[t];
-            if (this.character.isColliding(throwbottle)) {
-                throwbottle.checkDeadInstanz(this.level.enemies);
-                setTimeout(() => {
-                    this.level.enemies.splice(e, 1);
-                }, 1000);
-                break;
+            for (let e = 0; e < this.level.enemies.length; e++) {
+                let enemy = this.level.enemies[e];
+                if (throwbottle.isColliding(enemy)) {
+                    enemy.checkDeadInstanz(enemy);
+                    throwbottle.checkThrowInstanz(throwbottle);
+                    setTimeout(() => {
+                        this.ThrowableObject.splice(t, 1);
+                    }, 500);
+                    setTimeout(() => {
+                        this.level.enemies.splice(e, 1);
+                    }, 1000);
+                    break;
+                }
             }
         }
     }
@@ -126,7 +133,6 @@ class World {
             this.currentcollectbottle = collectedBottles;
             let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
             this.updateStatusBarSalsa(thrownbottles);
-            console.log(this.currentcollectbottle);
         }
     }
 
