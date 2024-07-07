@@ -127,17 +127,23 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    checkDeadInstanz(enemy) {
-        if (enemy instanceof Chicken) {
-            enemy.isDeadChicken();
-        } else if (enemy instanceof ChickenYellow) {
-            enemy.isDeadChickenSmart();
+    checkDeadInstanz(mo) {
+        if (mo instanceof Chicken) {
+            mo.isDeadChicken();
+        } else if (mo instanceof ChickenYellow) {
+            mo.isDeadChickenSmart();
         }
     }
 
-    checkThrowInstanz(throwbottle) {
-        if (throwbottle instanceof ThrowableObject) {
-            throwbottle.checkSplash();
+    checkThrowInstanz(mo) {
+        if (mo instanceof ThrowableObject) {
+            mo.checkSplash();
+        }
+    }
+
+    checkBossInstanz(mo) {
+        if (mo instanceof Endboss) {
+            mo.hit();
         }
     }
 

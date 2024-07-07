@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    bigboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -34,6 +35,7 @@ class World {
             this.checkThrowObjects();
             this.checkThrowCollision();
             this.checkCollisionsAbove();
+            // this.checkCollisionEndboss();
         }, 200);
     }
 
@@ -68,14 +70,22 @@ class World {
                 if (throwbottle.isColliding(enemy)) {
                     enemy.checkDeadInstanz(enemy);
                     throwbottle.checkThrowInstanz(throwbottle);
-                    setTimeout(() => {
-                        this.ThrowableObject.splice(t, 1);
-                    }, 500);
+                    // setTimeout(() => {
+                    //     this.ThrowableObject.splice(t, 1);
+                    // }, 200);
                     setTimeout(() => {
                         this.level.enemies.splice(e, 1);
                     }, 1000);
                     break;
                 }
+            }
+            if (throwbottle.isColliding(this.bigboss)) {
+                throwbottle.checkBossInstanz(this.bigboss);
+                this.statusBarEndboss.setPercentage(this.bigboss.energy);
+                throwbottle.checkThrowInstanz(throwbottle);
+                // setTimeout(() => {
+                //     this.ThrowableObject.splice(t, 1);
+                // }, 200);
             }
         }
     }
@@ -97,6 +107,21 @@ class World {
             }
         });
     }
+
+    // checkCollisionEndboss() {
+    //     for (let t = 0; t < this.ThrowableObject.length; t++) {
+    //         let throwbottle = this.ThrowableObject[t];
+    //         if (this.bigboss.isColliding(throwbottle)) {
+    //             throwbottle.checkThrowInstanz(throwbottle);
+    //             setTimeout(() => {
+    //                 this.ThrowableObject.splice(t, 1);
+    //             }, 500);
+    //             this.bigboss.hit();
+    //             this.statusBarEndboss.setPercentage(this.bigboss.energy);
+    //             break;
+    //         }
+    //     };
+    // }
 
     checkCollectUp() {
         let updated = false;
@@ -141,19 +166,24 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundsObjects);
+        this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarSalsa);
-        this.addToMap(this.statusBarEndboss);
+
+        if (this.character.x >= 2200) {
+            this.addToMap(this.statusBarEndboss);
+        }
+
         this.ctx.translate(this.camera_x, 0);
 
+        this.addToMap(this.bigboss);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.ThrowableObject);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -178,7 +208,7 @@ class World {
         mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
-            this.flipImageBack(mo)
+            this.flipImageBack(mo);
         }
     }
 
@@ -193,10 +223,4 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
-    // deleteFromMap(mo) {
-    //     if () {
-    //         this.ctx.clearRect(mo.x, mo.y, mo.width, mo.height);
-    //     }
-    // }
 }
