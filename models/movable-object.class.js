@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.2;
     energy = 100;
+    energyBoss = 100;
     salsacoins = 1;
     salsabottle = 1;
     lastHit = 0;
@@ -108,6 +109,15 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    hitBoss() {
+        this.energy -= 15;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
     hit() {
         this.energy -= 5;
         if (this.energy < 0) {
@@ -143,7 +153,7 @@ class MovableObject extends DrawableObject {
 
     checkBossInstanz(mo) {
         if (mo instanceof Endboss) {
-            mo.hit();
+            mo.hitBoss();
         }
     }
 
