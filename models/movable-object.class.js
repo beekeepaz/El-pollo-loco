@@ -8,8 +8,73 @@ class MovableObject extends DrawableObject {
     salsacoins = 1;
     salsabottle = 1;
     lastHit = 0;
-    lastCollect = 0;
-    lastCollectS = 0;
+    lastCollectCoin = 0;
+    lastCollectBottle = 0;
+    laststand = 1;
+    lastidle = 2;
+    lastlongidle = 0;
+    idleTimeout;
+    longIdleTimeout;
+    resetidle = true;
+
+    resetIdleTimer() {
+        if (this.idleTimeout) {
+            clearTimeout(this.idleTimeout);
+        }
+    }
+
+    resetLongIdleTimer() {
+        if (this.longIdleTimeout) {
+            clearTimeout(this.longIdleTimeout);
+        }
+    }
+
+    lastStand() {
+        if (this.lastidle !== 1 && this.lastlongidle !== 2) {
+            this.laststand = 0;
+            this.lastidle = 9;
+            this.lastlongidle = 9;
+        }
+        if (this.laststand === 0) {
+            return true;
+        }
+    }
+
+    lastIdle() {
+        if (this.laststand === 0) {
+            this.idleTimeout = setTimeout(() => {
+                this.laststand = 9;
+                this.lastidle = 1;
+                this.lastlongidle = 9;
+            }, 2000);
+        };
+        if (this.lastlongidle === 2) {
+            this.resetIdleTimer();
+        }
+        if (this.lastidle === 1) {
+            return true;
+        }
+    }
+
+    lastLongIdle() {
+        if (this.lastidle === 1 && this.resetidle === false) {
+            this.longIdleTimeout = setTimeout(() => {
+                this.laststand = 9;
+                this.lastidle = 9;
+                this.lastlongidle = 2;
+            }, 4000);
+        };
+        if (this.lastidle === 1 && this.resetidle === true) {
+            this.resetLongIdleTimer();
+        }
+        if (this.lastlongidle === 2) {
+            return true;
+        }
+    }
+
+    resetIdle() {
+        this.resetidle = true;
+    }
 
     applyGravity() {
         setInterval(() => {
@@ -51,6 +116,14 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
+    isMoving() {
+        this.y = 58;
+    }
+
+    isBossAttack() {
+        this.x == 15;
+    }
+
     jump() {
         return this.speedY = 30;
     }
@@ -71,7 +144,7 @@ class MovableObject extends DrawableObject {
     isCollidingAbove(enemy) {
         if (this.isJumping() && !this.isHurt()) {
             return this.x + this.width > enemy.x &&
-                this.y + this.height > enemy.y &&
+                this.y + (this.height + 16) > enemy.y &&
                 this.x < enemy.x &&
                 this.y < enemy.y + enemy.height;
         }
@@ -91,21 +164,21 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    collect() {
+    collectCoin() {
         this.salsacoins += 1;
         if (this.salsacoins > 100) {
             this.salsacoins = 100;
         } else {
-            this.lastCollect = new Date().getTime();
+            this.lastCollectCoin = new Date().getTime();
         }
     }
 
-    collectS() {
+    collectBottle() {
         this.salsabottle += 1;
         if (this.salsabottle > 100) {
             this.salsabottle = 100;
         } else {
-            this.lastCollectS = new Date().getTime();
+            this.lastCollectBottle = new Date().getTime();
         }
     }
 
@@ -156,13 +229,4 @@ class MovableObject extends DrawableObject {
             mo.hitBoss();
         }
     }
-
-    // isColliding(obj) {
-    //     return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-    //         (this.y + this.offsetY + this.height) >= obj.y &&
-    //         (this.y + this.offsetY) <= (obj.y + obj.height) &&
-    //         obj.onCollisionCourse; /
-
-    // }
-
 }

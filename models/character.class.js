@@ -68,12 +68,14 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONGIDLE);
         this.applyGravityChar();
         this.animate();
     }
 
-    setGround() {
-        this.loadImage(this.IMAGES_WALKING[0]);
+    setGroundImage() {
+        this.loadImage(this.IMAGES_JUMPING[8]);
     }
 
     applyGravityChar() {
@@ -82,9 +84,6 @@ class Character extends MovableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
-                if (this.setWalkingAnimation()) {
-                    this.loadImage(this.IMAGES_JUMPING[8]);
-                }
                 this.speedY = 0;
             }
         }, 1000 / 25);
@@ -143,16 +142,36 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.resetIdle();
             } else if (this.isHurt() && !this.isCollidingAbove()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.resetIdle();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+                this.resetIdle();
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.resetIdle();
             }
         }, 100);
+
+        setInterval(() => {
+            if (this.lastStand() && this.setWalkingAnimation()) {
+                this.setGroundImage(); 
+            };
+        }, 200);
+
+        setInterval(() => {
+            if (this.lastIdle() && this.setWalkingAnimation()) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+        }, 200);
+
+        setInterval(() => {
+            if (this.lastLongIdle() && this.setWalkingAnimation()) {
+                this.playAnimation(this.IMAGES_LONGIDLE); 
+            };
+        }, 200);
     }
 
     // gameOver() {

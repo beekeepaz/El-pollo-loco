@@ -57,13 +57,38 @@ class Endboss extends MovableObject {
 
     animate() {
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
+            this.updateAnimation();
         }, 100);
+    }
+    
+    updateAnimation() {
+        const state = this.getCurrentState();
+        const images = this.getImagesForState(state);
+        this.playAnimation(images);
+    }
+    
+    getCurrentState() {
+        if (this.isDead()) {
+            return 'dead';
+        } else if (this.isHurt()) {
+            return 'hurt';
+        } else if (this.isMoving()) {
+            return 'moving';
+        } else if (this.isBossAttack()) {
+            return 'bossAttack';
+        } else {
+            return 'moving';
+        }
+    }
+    
+    getImagesForState(state) {
+        const stateToImagesMap = {
+            dead: this.IMAGES_DEAD,
+            hurt: this.IMAGES_HURT,
+            moving: this.IMAGES_WALKING,
+            bossAttack: this.IMAGES_ATTACK,
+        };
+    
+        return stateToImagesMap[state];
     }
 }
