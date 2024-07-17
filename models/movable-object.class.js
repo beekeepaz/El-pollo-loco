@@ -13,67 +13,61 @@ class MovableObject extends DrawableObject {
     laststand = 1;
     lastidle = 2;
     lastlongidle = 0;
+    laststandTimout;
     idleTimeout;
     longIdleTimeout;
     resetidle = true;
 
-    resetIdleTimer() {
-        if (this.idleTimeout) {
-            clearTimeout(this.idleTimeout);
-        }
-    }
-
-    resetLongIdleTimer() {
-        if (this.longIdleTimeout) {
-            clearTimeout(this.longIdleTimeout);
-        }
-    }
-
     lastStand() {
         if (this.lastidle !== 1 && this.lastlongidle !== 2) {
             this.laststand = 0;
-            this.lastidle = 9;
-            this.lastlongidle = 9;
-        }
+            this.laststandTimout = setTimeout(() => {
+                this.lastidle = 9;
+                this.lastlongidle = 9;
+            }, 1000);
+        };
         if (this.laststand === 0) {
             return true;
-        }
+        };
     }
 
     lastIdle() {
-        if (this.laststand === 0) {
+        if (this.lastidle === 9 && this.lastlongidle === 9) {
             this.idleTimeout = setTimeout(() => {
                 this.laststand = 9;
                 this.lastidle = 1;
                 this.lastlongidle = 9;
-            }, 2000);
+            }, 1000);
         };
-        if (this.lastlongidle === 2) {
-            this.resetIdleTimer();
-        }
         if (this.lastidle === 1) {
             return true;
-        }
+        };
     }
 
     lastLongIdle() {
-        if (this.lastidle === 1 && this.resetidle === false) {
+        if (this.lastidle === 9 && this.lastlongidle === 9) {
             this.longIdleTimeout = setTimeout(() => {
                 this.laststand = 9;
                 this.lastidle = 9;
                 this.lastlongidle = 2;
             }, 4000);
         };
-        if (this.lastidle === 1 && this.resetidle === true) {
-            this.resetLongIdleTimer();
-        }
         if (this.lastlongidle === 2) {
             return true;
-        }
+        };
     }
 
     resetIdle() {
-        this.resetidle = true;
+        clearTimeout(this.laststandTimout);
+        clearTimeout(this.idleTimeout);
+        clearTimeout(this.longIdleTimeout);
+        this.resetIdleVariables();
+    }
+
+    resetIdleVariables() {
+        this.laststand = 1;
+        this.lastidle = 2;
+        this.lastlongidle = 0;
     }
 
     applyGravity() {
@@ -92,7 +86,7 @@ class MovableObject extends DrawableObject {
             return this.y < 352;
         else {
             return this.y < 148;
-        }
+        };
     }
 
     isOnGround() {
