@@ -16,7 +16,6 @@ class MovableObject extends DrawableObject {
     laststandTimout;
     idleTimeout;
     longIdleTimeout;
-    resetidle = true;
 
     lastStand() {
         if (this.lastidle !== 1 && this.lastlongidle !== 2) {

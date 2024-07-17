@@ -12,6 +12,8 @@ class ChickenYellow extends MovableObject {
     ];
     currentDead = false;
 
+    static existingPositions = []; // Statische Liste, um Positionen zu speichern
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.mathRandom();
@@ -26,8 +28,25 @@ class ChickenYellow extends MovableObject {
     }
 
     mathRandom() {
-        this.x = 500 + Math.random() * 900;
+        let newX, newY;
+        do {
+            newX = 1600 + Math.random() * 900;
+            newY = this.y;
+        } while (ChickenYellow.isCollidingWithExisting(newX, newY, this.width, this.height));
+        
+        this.x = newX;
+        this.y = newY;
         this.speed = 0.2 + Math.random() * 0.10;
+        ChickenYellow.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
+    }
+
+    static isCollidingWithExisting(newX, newY, newWidth, newHeight) {
+        return ChickenYellow.existingPositions.some(pos => 
+            newX < pos.x + pos.width &&
+            newX + newWidth > pos.x &&
+            newY < pos.y + pos.height &&
+            newY + newHeight > pos.y
+        );
     }
 
     animate() {
