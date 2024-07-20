@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 58;
+    x = 2876;
 
     IMAGES_WALKING = [
         `../img/4_enemie_boss_chicken/1_walk/G1.png`,
@@ -43,21 +44,43 @@ class Endboss extends MovableObject {
         '../img/4_enemie_boss_chicken/5_dead/G25.png',
         '../img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
+    world;
+    movementStarted = false; // Hinzugefügt, um den Bewegungsstart zu verfolgen
+    attackAnimationStarted = false; // Hinzugefügt, um den Start der Angriffsanimation zu verfolgen
 
-    constructor() {
+    constructor(world) {
         super().loadImage(this.IMAGES_WALKING[0]);
+        this.world = world;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.x = 2876;
         this.animate();
+    }
+
+    isMoving() {
+        return this.world.character.x >= 2200;
     }
 
     animate() {
         setInterval(() => {
             this.updateAnimation();
+        }, 100);
+
+        // Überprüfe kontinuierlich, ob die Bedingung erfüllt ist
+        setInterval(() => {
+            if (this.isMoving() && !this.movementStarted) {
+                if (!this.attackAnimationStarted) {
+                    this.attackAnimationStarted = true; // Markiere, dass die Angriffsanimation gestartet wurde
+                    setTimeout(() => {
+                        this.movementStarted = true; // Markiere, dass die Bewegung gestartet wurde
+                        setInterval(() => {
+                            this.moveLeft();
+                        }, 1000 / 60);
+                    }, 3000); // 3 Sekunden Verzögerung
+                }
+            }
         }, 100);
     }
     
@@ -72,10 +95,10 @@ class Endboss extends MovableObject {
             return 'dead';
         } else if (this.isHurt()) {
             return 'hurt';
+        } else if (this.attackAnimationStarted && !this.movementStarted) {
+            return 'bossAttack';
         } else if (this.isMoving()) {
             return 'moving';
-        } else if (this.isBossAttack()) {
-            return 'bossAttack';
         } else {
             return 'moving';
         }

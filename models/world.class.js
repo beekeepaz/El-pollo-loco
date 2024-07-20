@@ -1,6 +1,6 @@
 class World {
     character = new Character();
-    bigboss = new Endboss();
+    bigboss = new Endboss(this);
     level = level1;
     canvas;
     ctx;
@@ -44,7 +44,7 @@ class World {
         }, 1000);
     }
 
-    collingAboveSet(enemy, index) {
+    collidingAboveSet(enemy, index) {
         if (this.character.isCollidingAbove(enemy)) {
             enemy.checkDeadInstanz(enemy);
             this.spliceEnemie(index);
@@ -56,7 +56,7 @@ class World {
     
     checkCollisionsAbove() {
         this.level.enemies.forEach((enemy, index) => {
-            if (this.collingAboveSet(enemy, index)) {
+            if (this.collidingAboveSet(enemy, index)) {
                 return;
             }
         });
@@ -214,10 +214,18 @@ class World {
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
-            this.addToMap(o);
+            if (o.otherDirection) {
+                this.flipImage(o);
+            }
+            o.draw(this.ctx);
+            // o.drawFrame(this.ctx);
+    
+            if (o.otherDirection) {
+                this.flipImageBack(o);
+            }
         });
     }
-
+    
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);

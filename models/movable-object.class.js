@@ -109,10 +109,6 @@ class MovableObject extends DrawableObject {
         this.x -= this.speed;
     }
 
-    isMoving() {
-        this.y = 58;
-    }
-
     isBossAttack() {
         this.x == 15;
     }

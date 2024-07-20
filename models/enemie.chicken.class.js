@@ -26,18 +26,24 @@ class Chicken extends MovableObject {
     }
 
     findNonOverlappingPosition() {
-        let positionFound = false;
-        while (!positionFound) {
+        const intervalId = setInterval(() => {
             this.mathRandom();
-            positionFound = true;
+            let positionFound = true;
             for (let chicken of Chicken.existingChickens) {
                 if (this.isTooClose(chicken)) {
                     positionFound = false;
                     break;
                 }
             }
-        }
-        Chicken.existingChickens.push(this);
+            if (positionFound) {
+                Chicken.existingChickens.push(this);
+                clearInterval(intervalId);
+            }
+        }, 50); // Überprüft alle 50 Millisekunden
+
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, 3000); // Stoppt den Interval nach 3 Sekunden
     }
 
     isTooClose(other) {
