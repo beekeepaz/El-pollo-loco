@@ -6,11 +6,12 @@ const level1 = new Level(
         new ChickenYellow(),
         new ChickenYellow(),
         new ChickenYellow()
-        // new Endboss()
     ],
 
     [
         new Cloud(),
+        new Cloud(),
+        new CloudSecond(),
         new CloudSecond()
     ],
 
