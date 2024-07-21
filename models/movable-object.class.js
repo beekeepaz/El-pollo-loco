@@ -81,9 +81,11 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
-        } else if (this instanceof ChickenYellow)
+        } else if (this instanceof ChickenYellow) {
             return this.y < 352;
-        else {
+        } else if (this instanceof Endboss) {
+            return this.y < 60;
+        } else {
             return this.y < 148;
         };
     }
@@ -124,6 +126,10 @@ class MovableObject extends DrawableObject {
 
     jumpChicken() {
         return this.speedY = 16;
+    }
+
+    jumpBoss() {
+        return this.speedY = 2;
     }
 
     isJumping() {

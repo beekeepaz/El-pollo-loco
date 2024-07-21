@@ -1,8 +1,10 @@
 class Endboss extends MovableObject {
     height = 400;
     width = 250;
-    y = 58;
+    y = 20;
     x = 2876;
+    acceleration = 0.1;
+    speed = 0.4;
 
     IMAGES_WALKING = [
         `../img/4_enemie_boss_chicken/1_walk/G1.png`,
@@ -56,6 +58,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
+        this.applyGravity();
         this.animate();
     }
 
@@ -82,20 +85,29 @@ class Endboss extends MovableObject {
                 }
             }
         }, 100);
+
+        setInterval(() => {
+            if (!this.isAboveGround() && this.isMoving()) {
+                setTimeout(() => {
+                    this.jumpBoss();
+                }, 5000); // 5 Sekunden Verzögerung
+            }
+        }, 100);
+
     }
-    
+
     updateAnimation() {
         const state = this.getCurrentState();
         const images = this.getImagesForState(state);
         this.playAnimation(images);
     }
-    
+
     getCurrentState() {
         if (this.isDead()) {
             return 'dead';
         } else if (this.isHurt()) {
             return 'hurt';
-        } else if (this.attackAnimationStarted && !this.movementStarted) {
+        } else if (this.attackAnimationStarted && !this.movementStarted || this.isJumping()) {
             return 'bossAttack';
         } else if (this.isMoving()) {
             return 'moving';
@@ -103,7 +115,7 @@ class Endboss extends MovableObject {
             return 'moving';
         }
     }
-    
+
     getImagesForState(state) {
         const stateToImagesMap = {
             dead: this.IMAGES_DEAD,
@@ -111,7 +123,7 @@ class Endboss extends MovableObject {
             moving: this.IMAGES_WALKING,
             bossAttack: this.IMAGES_ATTACK,
         };
-    
+
         return stateToImagesMap[state];
     }
 }
