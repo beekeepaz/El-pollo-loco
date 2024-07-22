@@ -164,15 +164,6 @@ class World {
         this.updateStatusBarSalsa(thrownbottles);
     }
     
-    
-    updateBottle() {
-        let collectedBottles = this.character.salsabottle;
-        this.currentcollectbottle = collectedBottles;
-        let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
-        this.updateStatusBarSalsa(thrownbottles);
-    }
-    
-
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth);
 

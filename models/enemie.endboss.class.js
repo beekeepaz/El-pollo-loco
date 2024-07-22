@@ -87,13 +87,10 @@ class Endboss extends MovableObject {
         }, 100);
 
         setInterval(() => {
-            if (!this.isAboveGround() && this.isMoving()) {
-                setTimeout(() => {
-                    this.jumpBoss();
-                }, 5000); // 5 Sekunden Verzögerung
-            }
+            setTimeout(() => {
+                this.speed = 2.4;
+            }, 5000);
         }, 100);
-
     }
 
     updateAnimation() {
@@ -107,7 +104,7 @@ class Endboss extends MovableObject {
             return 'dead';
         } else if (this.isHurt()) {
             return 'hurt';
-        } else if (this.attackAnimationStarted && !this.movementStarted || this.isJumping()) {
+        } else if (this.attackAnimationStarted && !this.movementStarted || this.speed === 2.4) {
             return 'bossAttack';
         } else if (this.isMoving()) {
             return 'moving';
