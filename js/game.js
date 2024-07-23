@@ -3,7 +3,16 @@ let world;
 let keyboard = new Keyboard();
 let startscreen;
 
+window.stopButtonClicked = false;
+
+function endThisGame() {
+    window.stopButtonClicked = true;
+    exit();
+}
+
 function init() {
+    window.stopButtonClicked = false;
+    initLevel();
     setTimeout(() => {
         canvas = document.getElementById(`canvas`);
         startscreen = document.getElementById(`start_screen`);
@@ -15,7 +24,7 @@ function init() {
 
 function exit() {
     if (world) {
-        world = null; // Das World-Objekt entfernen
+        world = null; 
         canvas.classList.remove('d-block');
         startscreen.classList.remove('d-none');
     }

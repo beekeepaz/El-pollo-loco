@@ -22,7 +22,7 @@ class ChickenYellow extends MovableObject {
         this.animate();
         this.findNonOverlappingPosition();
         this.applyGravity();
-        // this.stopGame();
+        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -32,11 +32,12 @@ class ChickenYellow extends MovableObject {
     }
 
     stopGame() {
-        // if (this.keyboard.W) {
-        //     this.intervalIDs.forEach(clearInterval);
-        // }
-        let end = document.getElementById('end');
-        console.log(end);
+        setInterval(() => {
+            if (window.stopButtonClicked) {
+                this.intervalIDs.forEach(clearInterval);
+                this.intervalIDs = [];
+            }
+        }, 100);
     }
 
     animate() {
@@ -80,7 +81,7 @@ class ChickenYellow extends MovableObject {
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); 
+        }, 2000); 
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {

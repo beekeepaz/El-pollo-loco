@@ -29,7 +29,7 @@ class CloudSecond extends MovableObject {
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); 
+        }, 2000); 
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {

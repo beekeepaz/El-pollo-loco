@@ -84,8 +84,9 @@ class Character extends MovableObject {
 
     stopGame() {
         setInterval(() => {
-            if (this.world.keyboard.W) {
+            if (window.stopButtonClicked) {
                 this.intervalIDs.forEach(clearInterval);
+                this.intervalIDs = [];
             }
         }, 100);
     }

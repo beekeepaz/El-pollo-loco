@@ -37,8 +37,9 @@ class World {
 
     stopGame() {
         setInterval(() => {
-            if (this.keyboard.W) {
+            if (window.stopButtonClicked) {
                 this.intervalIDs.forEach(clearInterval);
+                this.intervalIDs = [];
             }
         }, 100);    
     }
