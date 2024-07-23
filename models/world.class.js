@@ -11,8 +11,10 @@ class World {
     statusBarSalsa = new StatusBarSalsa();
     statusBarEndboss = new statusBarEndboss();
     ThrowableObject = [];
-    maxBottles = 7;
+    maxBottles = 9;
     currentcollectbottle = 0;
+    intervalIDs = [];
+    i = 1;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -21,21 +23,34 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.stopGame();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    run() {
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
         setInterval(() => {
-            this.checkCollisions();
-            this.checkCollectCoins();
-            this.checkCollectBottles();
-            this.checkThrowObjects();
-            this.checkThrowCollision();
-            this.checkCollisionsAbove();
-        }, 200);
+            if (this.keyboard.W) {
+                this.intervalIDs.forEach(clearInterval);
+            }
+        }, 100);    
+    }
+
+    run() {
+        this.setStoppableInterval(this.checkCollisions, 200);
+        this.setStoppableInterval(this.checkCollectCoins, 200);
+        this.setStoppableInterval(this.checkCollectBottles, 200);
+        this.setStoppableInterval(this.checkThrowObjects, 200);
+        this.setStoppableInterval(this.checkThrowCollision, 200);
+        this.setStoppableInterval(this.checkCollisionsAbove, 200);
     }
 
     spliceEnemie(e) {
@@ -53,7 +68,7 @@ class World {
         }
         return false;
     }
-    
+
     checkCollisionsAbove() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.collidingAboveSet(enemy, index)) {
@@ -61,7 +76,7 @@ class World {
             }
         });
     }
-    
+
     checkThrowObjects() {
         if (this.keyboard.D && this.throwObjekt()) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
@@ -151,19 +166,19 @@ class World {
                 updated = true;
             }
         });
-    
+
         if (updated) {
             this.updateBottle();
         }
     }
-    
+
     updateBottle() {
         let collectedBottles = this.character.salsabottle;
         this.currentcollectbottle = collectedBottles;
         let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
         this.updateStatusBarSalsa(thrownbottles);
     }
-    
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth);
 
@@ -210,13 +225,13 @@ class World {
             }
             o.draw(this.ctx);
             // o.drawFrame(this.ctx);
-    
+
             if (o.otherDirection) {
                 this.flipImageBack(o);
             }
         });
     }
-    
+
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);

@@ -47,8 +47,8 @@ class Endboss extends MovableObject {
         '../img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
     world;
-    movementStarted = false; // Hinzugefügt, um den Bewegungsstart zu verfolgen
-    attackAnimationStarted = false; // Hinzugefügt, um den Start der Angriffsanimation zu verfolgen
+    movementStarted = false; 
+    attackAnimationStarted = false; 
 
     constructor(world) {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -71,17 +71,16 @@ class Endboss extends MovableObject {
             this.updateAnimation();
         }, 100);
 
-        // Überprüfe kontinuierlich, ob die Bedingung erfüllt ist
         setInterval(() => {
             if (this.isMoving() && !this.movementStarted) {
                 if (!this.attackAnimationStarted) {
-                    this.attackAnimationStarted = true; // Markiere, dass die Angriffsanimation gestartet wurde
+                    this.attackAnimationStarted = true; 
                     setTimeout(() => {
-                        this.movementStarted = true; // Markiere, dass die Bewegung gestartet wurde
+                        this.movementStarted = true; 
                         setInterval(() => {
                             this.moveLeft();
                         }, 1000 / 60);
-                    }, 3000); // 3 Sekunden Verzögerung
+                    }, 3000); 
                 }
             }
         }, 100);

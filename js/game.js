@@ -4,13 +4,13 @@ let keyboard = new Keyboard();
 let startscreen;
 
 function init() {
-    setTimeout(function() {
+    setTimeout(() => {
         canvas = document.getElementById(`canvas`);
         startscreen = document.getElementById(`start_screen`);
         startscreen.classList.add('d-none');
         canvas.classList.add('d-block');
         world = new World(canvas, keyboard);
-    }, 1000); // 2000 Millisekunden = 2 Sekunden
+    }, 1000);
 }
 
 function exit() {
@@ -46,61 +46,61 @@ function exitFullscreen() {
 
 window.addEventListener("keydown", (e) => {
     // console.log(e.keyCode);
-    if(e.keyCode == 39) {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
 
-    if(e.keyCode == 37) {
+    if (e.keyCode == 37) {
         keyboard.LEFT = true;
     }
 
-    if(e.keyCode == 38) {
+    if (e.keyCode == 38) {
         keyboard.UP = true;
     }
 
-    if(e.keyCode == 40) {
+    if (e.keyCode == 40) {
         keyboard.DOWN = true;
     }
 
-    if(e.keyCode == 32) {
+    if (e.keyCode == 32) {
         keyboard.SPACE = true;
     }
 
-    if(e.keyCode == 68) {
+    if (e.keyCode == 68) {
         keyboard.D = true;
     }
 
-    if(e.keyCode == 87) {
+    if (e.keyCode == 87) {
         keyboard.W = true;
     }
 });
 
 window.addEventListener("keyup", (e) => {
-    if(e.keyCode == 39) {
+    if (e.keyCode == 39) {
         keyboard.RIGHT = false;
     }
 
-    if(e.keyCode == 37) {
+    if (e.keyCode == 37) {
         keyboard.LEFT = false;
     }
 
-    if(e.keyCode == 38) {
+    if (e.keyCode == 38) {
         keyboard.UP = false;
     }
 
-    if(e.keyCode == 40) {
+    if (e.keyCode == 40) {
         keyboard.DOWN = false;
     }
 
-    if(e.keyCode == 32) {
+    if (e.keyCode == 32) {
         keyboard.SPACE = false;
     }
 
-    if(e.keyCode == 68) {
+    if (e.keyCode == 68) {
         keyboard.D = false;
     }
 
-    if(e.keyCode == 87) {
+    if (e.keyCode == 87) {
         keyboard.W = false;
     }
 });

@@ -34,14 +34,14 @@ h1 {
     position: absolute;
     width: 720px;
     height: 480px;
-    background-color: rgba(114, 9, 9, 0.459);
+    background-color: rgba(114, 9, 9, 0);
     border-radius: 8px;
     color: rgb(255, 152, 0);
 }
 
 .overlay {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
