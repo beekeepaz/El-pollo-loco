@@ -47,8 +47,9 @@ class Endboss extends MovableObject {
         '../img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
     world;
-    movementStarted = false; 
-    attackAnimationStarted = false; 
+    movementStarted = false;
+    attackAnimationStarted = false;
+    intervalIDs = [];
 
     constructor(world) {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -60,36 +61,48 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
+        // this.stopGame();
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
+        // if (this.keyboard.W) {
+        //     this.intervalIDs.forEach(clearInterval);
+        // }
+        let end = document.getElementById('end');
+        console.log(end);
+    }
+
+    animate() {
+        this.setStoppableInterval(this.animationMove, 100);
+        this.setStoppableInterval(this.automaticMove, 100);
+    }
+
+    animationMove() {
+        this.updateAnimation();
+    }
+
+    automaticMove() {
+        if (this.isMoving() && !this.movementStarted) {
+            if (!this.attackAnimationStarted) {
+                this.attackAnimationStarted = true;
+                setTimeout(() => {
+                    this.movementStarted = true;
+                    setInterval(() => {
+                        this.moveLeft();
+                    }, 1000 / 60);
+                }, 3000);
+            }
+        }
     }
 
     isMoving() {
         return this.world.character.x >= 2200;
-    }
-
-    animate() {
-        setInterval(() => {
-            this.updateAnimation();
-        }, 100);
-
-        setInterval(() => {
-            if (this.isMoving() && !this.movementStarted) {
-                if (!this.attackAnimationStarted) {
-                    this.attackAnimationStarted = true; 
-                    setTimeout(() => {
-                        this.movementStarted = true; 
-                        setInterval(() => {
-                            this.moveLeft();
-                        }, 1000 / 60);
-                    }, 3000); 
-                }
-            }
-        }, 100);
-
-        setInterval(() => {
-            setTimeout(() => {
-                this.speed = 2.4;
-            }, 5000);
-        }, 100);
     }
 
     updateAnimation() {

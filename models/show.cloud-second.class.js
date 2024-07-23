@@ -16,7 +16,7 @@ class CloudSecond extends MovableObject {
 
     findNonOverlappingPosition() {
         const intervalId = setInterval(() => {
-            let newX = 1200 + Math.random() * 2200; // Vergrößere den Bereich
+            let newX = 1200 + Math.random() * 2400; 
             let newY = this.y;
 
             if (!CloudSecond.isCollidingWithExisting(newX, newY, this.width, this.height)) {
@@ -25,11 +25,11 @@ class CloudSecond extends MovableObject {
                 Cloud.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
                 clearInterval(intervalId);
             }
-        }, 50); // Überprüft alle 50 Millisekunden
+        }, 10); 
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); // Stoppt den Interval nach 3 Sekunden
+        }, 3000); 
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {

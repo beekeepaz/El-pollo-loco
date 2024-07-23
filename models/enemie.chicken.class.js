@@ -11,7 +11,8 @@ class Chicken extends MovableObject {
         '../img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
     currentDead = false;
-    static existingChickens = []; // Array to store the positions of existing chickens
+    static existingChickens = [];
+    intervalIDs = [];
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -19,6 +20,38 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.findNonOverlappingPosition();
         this.animate();
+        // this.stopGame();
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
+        // if (this.keyboard.W) {
+        //     this.intervalIDs.forEach(clearInterval);
+        // }
+        let end = document.getElementById('end');
+        console.log(end);
+    }
+
+    animate() {
+        this.setStoppableInterval(this.animationMove, 100);
+        this.setStoppableInterval(this.automaticMove, 1000 / 60);
+    }
+
+    animationMove() {
+        if (this.currentDead) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    automaticMove() {
+        this.moveLeft();
     }
 
     isDeadChicken() {
@@ -39,11 +72,11 @@ class Chicken extends MovableObject {
                 Chicken.existingChickens.push(this);
                 clearInterval(intervalId);
             }
-        }, 50); // Überprüft alle 50 Millisekunden
+        }, 10); 
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); // Stoppt den Interval nach 3 Sekunden
+        }, 3000); 
     }
 
     isTooClose(other) {
@@ -56,19 +89,5 @@ class Chicken extends MovableObject {
 
     mathRandom() {
         this.x = 719 + Math.random() * 719;
-    }
-
-    animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.currentDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 100);
     }
 }

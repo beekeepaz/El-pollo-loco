@@ -6,7 +6,7 @@ class Cloud extends MovableObject {
         '../img/5_background/layers/4_clouds/1.png'
     ];
 
-    static existingPositions = []; // Statische Liste, um Positionen zu speichern
+    static existingPositions = []; 
 
     constructor() {
         super().loadImage(this.BACKGROUND_IMAGE[0]);
@@ -16,7 +16,7 @@ class Cloud extends MovableObject {
 
     findNonOverlappingPosition() {
         const intervalId = setInterval(() => {
-            let newX = Math.random() * 1500; // Vergrößere den Bereich
+            let newX = Math.random() * 1500; 
             let newY = this.y;
 
             if (!Cloud.isCollidingWithExisting(newX, newY, this.width, this.height)) {
@@ -25,11 +25,11 @@ class Cloud extends MovableObject {
                 Cloud.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
                 clearInterval(intervalId);
             }
-        }, 50); // Überprüft alle 50 Millisekunden
+        }, 10); 
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); // Stoppt den Interval nach 3 Sekunden
+        }, 3000); 
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {

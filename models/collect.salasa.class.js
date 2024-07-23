@@ -8,19 +8,53 @@ class SalsaBottle extends MovableObject {
     ];
 
     static existingPositions = []; // Array to hold the positions of all SalsaBottles
+    intervalIDs = [];
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.setPosition();
         this.animate();
+        // this.stopGame();
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
+        // if (this.keyboard.W) {
+        //     this.intervalIDs.forEach(clearInterval);
+        // }
+        let end = document.getElementById('end');
+        console.log(end);
+    }
+
+    animate() {
+        this.setStoppableInterval(this.animationMove, 1000);
     }
 
     setPosition() {
-        do {
+        let attempt = 0;
+        let intervalID = setInterval(() => {
             this.x = 600 + Math.random() * 900;
-        } while (this.isOverlapping());
-        SalsaBottle.existingPositions.push(this.x); // Save the position once it's validated
+            if (!this.isOverlapping() || attempt >= 300) { // Stop after 3000ms (300 attempts * 10ms)
+                clearInterval(intervalID);
+                if (!this.isOverlapping()) {
+                    SalsaBottle.existingPositions.push(this.x); // Save the position once it's validated
+                } else {
+                    console.error('Unable to find a non-overlapping position');
+                }
+            }
+            attempt++;
+        }, 10);
+
+        // Stop the interval after 3000ms
+        setTimeout(() => {
+            clearInterval(intervalID);
+        }, 3000);
     }
 
     isOverlapping() {
@@ -32,9 +66,7 @@ class SalsaBottle extends MovableObject {
         return false;
     }
 
-    animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 1000);
+    animationMove() {
+        this.playAnimation(this.IMAGES_WALKING);
     }
 }

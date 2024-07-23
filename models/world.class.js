@@ -14,7 +14,6 @@ class World {
     maxBottles = 9;
     currentcollectbottle = 0;
     intervalIDs = [];
-    i = 1;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');

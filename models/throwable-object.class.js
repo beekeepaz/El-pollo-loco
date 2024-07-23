@@ -16,6 +16,7 @@ class ThrowableObject extends MovableObject {
     ];
     currentSplash = false;
     world;
+    intervalIDs = [];
 
     constructor(x, y) {
         super().loadImage('../img/6_salsa_bottle/salsa_bottle.png');
@@ -27,15 +28,32 @@ class ThrowableObject extends MovableObject {
         this.height = 100;
         this.throw();
         this.animate();
-        this.animateMove();
+        // this.stopGame();
     }
 
-    animateMove() {
-        setInterval(() => {
-            // this.walking_sound.pause();
-            this.keyRight();
-            this.keyLeft();
-        }, 1000 / 60);
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
+        // if (this.keyboard.W) {
+        //     this.intervalIDs.forEach(clearInterval);
+        // }
+        let end = document.getElementById('end');
+        console.log(end);
+    }
+
+    animate() {
+        this.setStoppableInterval(this.animateMove, 100);
+        this.setStoppableInterval(this.changeDirektion, 1000 / 60);
+    }
+
+    changeDirektion() {
+        // this.walking_sound.pause();
+        this.keyRight();
+        this.keyLeft();
     }
 
     keyRight() {
@@ -59,18 +77,18 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
-        setInterval(() => {
-            this.x += 10;
-        }, 25);
+        this.setStoppableInterval(this.throwThisObject, 1000 / 60);
     }
 
-    animate() {
-        setInterval(() => {
-            if (this.currentSplash) {
-                this.playAnimation(this.IMAGES_SPLASH);
-            } else {
-                this.playAnimation(this.IMAGES_ROTATE);
-            }
-        }, 100);
+    throwThisObject() {
+        this.x += 10;
+    }
+
+    animateMove() {
+        if (this.currentSplash) {
+            this.playAnimation(this.IMAGES_SPLASH);
+        } else {
+            this.playAnimation(this.IMAGES_ROTATE);
+        }
     }
 }

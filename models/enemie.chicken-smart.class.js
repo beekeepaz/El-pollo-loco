@@ -12,15 +12,53 @@ class ChickenYellow extends MovableObject {
     ];
     currentDead = false;
 
-    static existingPositions = []; // Statische Liste, um Positionen zu speichern
+    static existingPositions = []; 
+    intervalIDs = [];
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
+        this.animate();
         this.findNonOverlappingPosition();
         this.applyGravity();
-        this.animate();
+        // this.stopGame();
+    }
+
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervalIDs.push(id);
+        console.log(id);
+    }
+
+    stopGame() {
+        // if (this.keyboard.W) {
+        //     this.intervalIDs.forEach(clearInterval);
+        // }
+        let end = document.getElementById('end');
+        console.log(end);
+    }
+
+    animate() {
+        this.setStoppableInterval(this.animationMove, 100);
+        this.setStoppableInterval(this.automaticMove, 1000 / 60);
+    }
+
+    animationMove() {
+        if (this.currentDead) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    automaticMove() {
+        if (!this.currentDead) {
+            this.moveLeft();
+            if (!this.isAboveGround()) {
+                this.jumpChicken();
+            }
+        }
     }
 
     isDeadChickenSmart() {
@@ -38,38 +76,19 @@ class ChickenYellow extends MovableObject {
                 ChickenYellow.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
                 clearInterval(intervalId);
             }
-        }, 50); // Überprüft alle 50 Millisekunden
+        }, 10);
 
         setTimeout(() => {
             clearInterval(intervalId);
-        }, 3000); // Stoppt den Interval nach 3 Sekunden
+        }, 3000); 
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {
-        return ChickenYellow.existingPositions.some(pos => 
+        return ChickenYellow.existingPositions.some(pos =>
             newX < pos.x + pos.width &&
             newX + newWidth > pos.x &&
             newY < pos.y + pos.height &&
             newY + newHeight > pos.y
         );
-    }
-
-    animate() {
-        setInterval(() => {
-            if (!this.currentDead) {
-                this.moveLeft();
-                if (!this.isAboveGround()) {
-                    this.jumpChicken();
-                }
-            }
-        }, 1000 / 60);
-
-        setInterval(() => {
-            if (this.currentDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 100);
     }
 }
