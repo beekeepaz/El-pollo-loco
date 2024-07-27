@@ -53,6 +53,31 @@ h1 {
     font-size: 32px;
 }
 
+.menu {
+    display: flex;
+    justify-content: space-between;
+    height: 50%;
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    height: 50%;
+    width: 100%;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+}
+
 button {
     background-color: rgba(240, 248, 255, 0.295);
     width: 120px;

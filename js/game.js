@@ -24,7 +24,7 @@ function init() {
 
 function exit() {
     if (world) {
-        world = null; 
+        world = null;
         canvas.classList.remove('d-block');
         startscreen.classList.remove('d-none');
     }
@@ -52,6 +52,90 @@ function exitFullscreen() {
         document.webkitExitFullscreen();
     }
 }
+
+window.addEventListener("touchstart", (b) => {
+    let leftButton = document.getElementById('left');
+    let rightButton = document.getElementById('right');
+    let throwleft = document.getElementById('throw_bottle_left');
+    let throwright = document.getElementById('throw_bottle_right');
+    let space = document.getElementById('space');
+    if (b.target === leftButton) {
+        keyboard.LEFT = true;
+        console.log("left_true");
+    }
+    if (b.target === rightButton) {
+        keyboard.RIGHT = true;
+        console.log("right_true");
+    }
+    if (b.target === throwleft) {
+        keyboard.D = true;
+        console.log("Throw left_true");
+    }
+    if (b.target === throwright) {
+        keyboard.D = true;
+        console.log("Throw right_true");
+    }
+    if (b.target === space) {
+        keyboard.SPACE = true;
+        console.log("space right_true");
+    }
+});
+
+window.addEventListener("touchend", (b) => {
+    let leftButton = document.getElementById('left');
+    let rightButton = document.getElementById('right');
+    let throwleft = document.getElementById('throw_bottle_left');
+    let throwright = document.getElementById('throw_bottle_right');
+    let space = document.getElementById('space');
+    if (b.target === leftButton) {
+        keyboard.LEFT = false;
+        console.log("left_false");
+    }
+    if (b.target === rightButton) {
+        keyboard.RIGHT = false;
+        console.log("right_false");
+    }
+    if (b.target === throwleft) {
+        keyboard.D = false;
+        console.log("Throw left_false");
+    }
+    if (b.target === throwright) {
+        keyboard.D = false;
+        console.log("Throw right_false");
+    }
+    if (b.target === space) {
+        keyboard.SPACE = false;
+        console.log("space right_false");
+    }
+});
+
+window.addEventListener("touchcancel", (b) => {
+    let leftButton = document.getElementById('left');
+    let rightButton = document.getElementById('right');
+    let throwleft = document.getElementById('throw_bottle_left');
+    let throwright = document.getElementById('throw_bottle_right');
+    let space = document.getElementById('space');
+    if (b.target === leftButton) {
+        keyboard.LEFT = false;
+        console.log("left_false");
+    }
+    if (b.target === rightButton) {
+        keyboard.RIGHT = false;
+        console.log("right_false");
+    }
+    if (b.target === throwleft) {
+        keyboard.D = false;
+        console.log("Throw left_false");
+    }
+    if (b.target === throwright) {
+        keyboard.D = false;
+        console.log("Throw right_false");
+    }
+    if (b.target === space) {
+        keyboard.SPACE = false;
+        console.log("space right_false");
+    }
+});
 
 window.addEventListener("keydown", (e) => {
     // console.log(e.keyCode);
