@@ -11,7 +11,7 @@ class World {
     statusBarSalsa = new StatusBarSalsa();
     statusBarEndboss = new statusBarEndboss();
     ThrowableObject = [];
-    maxBottles = 9;
+    maxBottles = 13;
     currentcollectbottle = 0;
     intervalIDs = [];
     direction;
@@ -33,7 +33,6 @@ class World {
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
-        console.log(id);
     }
 
     stopGame() {

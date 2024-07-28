@@ -21,7 +21,6 @@ class SalsaBottle extends MovableObject {
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
-        console.log(id);
     }
 
     stopGame() {

@@ -81,7 +81,6 @@ class Character extends MovableObject {
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
-        console.log(id);
     }
 
     stopGame() {
@@ -93,9 +92,18 @@ class Character extends MovableObject {
         }, 100);
     }
 
+    gameOver() {
+        if (this.isDead()) {
+            setTimeout(() => {
+                gameOver();
+            }, 1000);
+        }
+    }
+
     animate() {
         this.setStoppableInterval(this.animateMove, 1000 / 60);
         this.setStoppableInterval(this.applyGravityChar, 1000 / 25);
+        this.setStoppableInterval(this.gameOver, 100);
     }
 
     animateImages() {
@@ -126,7 +134,7 @@ class Character extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             this.resetIdle();
-        } else if (this.isHurt() && !this.isCollidingAbove()) {
+        } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.resetIdle();
         } else if (this.isAboveGround()) {
@@ -172,7 +180,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
-            if (window.soundEnabled === false) {
+            if (window.soundEnabled === true) {
                 this.walking_sound.play();
             }
         } 
@@ -182,7 +190,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
-            if (window.soundEnabled === false) {
+            if (window.soundEnabled === true) {
                 this.walking_sound.play();
             }
         } 
@@ -191,7 +199,7 @@ class Character extends MovableObject {
     keyJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
-            if (window.soundEnabled === false) {
+            if (window.soundEnabled === true) {
                 this.jumping_sound.play();
             }
         }
@@ -200,10 +208,4 @@ class Character extends MovableObject {
     charPosition() {
         this.world.camera_x = -this.x + 100;
     }
-
-    // gameOver() {
-    //     if(this.IMAGES_DEAD = this.IMAGES_DEAD.length -1) {
-    //         this.deleteChar();
-    //     }
-    // }
 }

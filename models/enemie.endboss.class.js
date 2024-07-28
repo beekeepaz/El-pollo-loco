@@ -67,7 +67,6 @@ class Endboss extends MovableObject {
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
-        console.log(id);
     }
 
     stopGame() {
@@ -79,9 +78,18 @@ class Endboss extends MovableObject {
         }, 100);    
     }
 
+    gameOver() {
+        if (this.isDead()) {
+            setTimeout(() => {
+                gameOver();
+            }, 1000);
+        }
+    }
+
     animate() {
         this.setStoppableInterval(this.animationMove, 100);
         this.setStoppableInterval(this.automaticMove, 100);
+        this.setStoppableInterval(this.gameOver, 100);
     }
 
     animationMove() {

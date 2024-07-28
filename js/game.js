@@ -2,10 +2,29 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let startscreen;
+let endscreen;
 let sound = false;
 window.soundEnabled = false;
-
 window.stopButtonClicked = false;
+
+function setScreens() {
+    endscreen = document.getElementById(`gameover_screen`);
+    endscreen.classList.add('d-none');
+}
+
+function gameOver() {
+    window.stopButtonClicked = true;
+    gameOverScreen();
+}
+
+function gameOverScreen() {
+    if (world) {
+        world = null;
+        endscreen = document.getElementById(`gameover_screen`);
+        canvas.classList.remove('d-block');
+        endscreen.classList.remove('d-none');
+    }
+}
 
 function endThisGame() {
     window.stopButtonClicked = true;
@@ -18,6 +37,8 @@ function init() {
     setTimeout(() => {
         canvas = document.getElementById(`canvas`);
         startscreen = document.getElementById(`start_screen`);
+        endscreen = document.getElementById(`gameover_screen`);
+        endscreen.classList.add('d-none');
         startscreen.classList.add('d-none');
         canvas.classList.add('d-block');
         world = new World(canvas, keyboard);
@@ -64,28 +85,22 @@ window.addEventListener("touchstart", (b) => {
     let toggleSound = document.getElementById('toggleSound');
     if (b.target === leftButton) {
         keyboard.LEFT = true;
-        console.log("left_true");
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = true;
-        console.log("right_true");
     }
     if (b.target === throwleft) {
         keyboard.D = true;
-        console.log("Throw left_true");
     }
     if (b.target === throwright) {
         keyboard.D = true;
-        console.log("Throw right_true");
     }
     if (b.target === space) {
         keyboard.SPACE = true;
-        console.log("space right_true");
     }
     if (b.target === toggleSound) {
-        sound = !sound; 
+        sound = !sound;
         sound ? soundEnabled = true : soundEnabled = false;
-        console.log(`sound ${sound ? 'enabled' : 'disabled'}`);
     }
 });
 
@@ -97,23 +112,18 @@ window.addEventListener("touchend", (b) => {
     let space = document.getElementById('space');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
-        console.log("left_false");
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = false;
-        console.log("right_false");
     }
     if (b.target === throwleft) {
         keyboard.D = false;
-        console.log("Throw left_false");
     }
     if (b.target === throwright) {
         keyboard.D = false;
-        console.log("Throw right_false");
     }
     if (b.target === space) {
         keyboard.SPACE = false;
-        console.log("space right_false");
     }
 });
 
@@ -125,23 +135,18 @@ window.addEventListener("touchcancel", (b) => {
     let space = document.getElementById('space');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
-        console.log("left_false");
     }
     if (b.target === rightButton) {
-        keyboard.RIGHT = false;c 
-        console.log("right_false");
+        keyboard.RIGHT = false; c
     }
     if (b.target === throwleft) {
         keyboard.D = false;
-        console.log("Throw left_false");
     }
     if (b.target === throwright) {
         keyboard.D = false;
-        console.log("Throw right_false");
     }
     if (b.target === space) {
         keyboard.SPACE = false;
-        console.log("space right_false");
     }
 });
 

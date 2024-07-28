@@ -126,7 +126,11 @@ class MovableObject extends DrawableObject {
     }
 
     jumpChicken() {
-        return this.speedY = 16;
+        return this.speedY = this.getRandomJumpSpeed();
+    }
+
+    getRandomJumpSpeed() {
+        return Math.floor(Math.random() * (16 - 8 + 1)) + 8;
     }
 
     jumpBoss() {
@@ -179,7 +183,7 @@ class MovableObject extends DrawableObject {
     }
 
     hitBoss() {
-        this.energy -= 15;
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

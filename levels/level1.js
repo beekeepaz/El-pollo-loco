@@ -7,6 +7,9 @@ function initLevel() {
                 new Chicken(),
                 new Chicken(),
                 new Chicken(),
+                new Chicken(),
+                new ChickenYellow(),
+                new ChickenYellow(),
                 new ChickenYellow(),
                 new ChickenYellow(),
                 new ChickenYellow()
@@ -58,10 +61,17 @@ function initLevel() {
                 new SalsaBottle(),
                 new SalsaBottle(),
                 new SalsaBottle(),
+                new SalsaBottle(),
+                new SalsaBottle(),
+                new SalsaBottle(),
+                new SalsaBottle(),
                 new SalsaBottle()
             ],
 
             [
+                new Coins(),
+                new Coins(),
+                new Coins(),
                 new Coins(),
                 new Coins(),
                 new Coins(),

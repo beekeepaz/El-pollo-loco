@@ -87,8 +87,11 @@ button {
 }
 
 img.start-screen {
-    /* display: flex; */
-    /* position: absolute; */
+    width: 720px;
+    height: 480px;
+}
+
+img.end-screen {
     width: 720px;
     height: 480px;
 }
@@ -142,6 +145,10 @@ p.descript {
     }
 
     img.start-screen {
+        width: 100%;
+    }
+
+    img.end-screen {
         width: 100%;
     }
 }
