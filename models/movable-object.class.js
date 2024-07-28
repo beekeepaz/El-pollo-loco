@@ -1,6 +1,7 @@
 class MovableObject extends DrawableObject {
     speed = 0.2;
     otherDirection = false;
+    otherDirections = false;
     speedY = 0;
     acceleration = 2.2;
     energy = 100;
@@ -105,10 +106,6 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         this.x += this.speed;
-    }
-
-    left() {
-        console.log("ANJIfdkosajiofaoi");
     }
 
     moveLeft() {

@@ -14,6 +14,7 @@ class World {
     maxBottles = 9;
     currentcollectbottle = 0;
     intervalIDs = [];
+    direction;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -79,7 +80,8 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D && this.throwObjekt()) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.direction = this.character.otherDirection ? 'left' : 'right';
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.direction);
             this.ThrowableObject.push(bottle);
             let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
             this.updateStatusBarSalsa(thrownbottles);

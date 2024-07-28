@@ -17,6 +17,7 @@ class ThrowableObject extends MovableObject {
     currentSplash = false;
     world;
     intervalIDs = [];
+    throwIntervalID;
 
     constructor(x, y) {
         super().loadImage('../img/6_salsa_bottle/salsa_bottle.png');
@@ -48,27 +49,6 @@ class ThrowableObject extends MovableObject {
 
     animate() {
         this.setStoppableInterval(this.animateMove, 100);
-        this.setStoppableInterval(this.changeDirektion, 1000 / 60);
-    }
-
-    changeDirektion() {
-        // this.walking_sound.pause();
-        this.keyRight();
-        this.keyLeft();
-    }
-
-    keyRight() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-            this.otherDirection = false;
-            // this.walking_sound.play();
-        }
-    }
-
-    keyLeft() {
-        if (this.world.keyboard.LEFT && this.x > 0) {
-            // this.walking_sound.play();
-            this.otherDirection = true;
-        }
     }
 
     checkSplash() {
@@ -78,11 +58,19 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
-        this.setStoppableInterval(this.throwThisObject, 1000 / 60);
+        this.throwIntervalID = setInterval(this.throwThisObject.bind(this), 1000 / 60);
+
+        setTimeout(() => {
+            clearInterval(this.throwIntervalID);
+        }, 2000);
     }
 
     throwThisObject() {
-        this.x += 10;
+        if (this.world.direction === 'right') {
+            this.x += 10;
+        } else if (this.world.direction === 'left') {
+            this.x -= 10;
+        }
     }
 
     animateMove() {

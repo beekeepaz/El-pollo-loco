@@ -61,7 +61,9 @@ class Character extends MovableObject {
     ];
     world;
     intervalIDs = [];
-    // walking_sound = new Audio("adiodatei");
+    walking_sound = new Audio("../audio/run.mp3");
+    jumping_sound = new Audio("../audio/jump.mp3");
+    snoring_sound = new Audio("../audio/snore.mp3");
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -104,7 +106,7 @@ class Character extends MovableObject {
     }
 
     animateMove() {
-        // this.walking_sound.pause();
+        this.walking_sound.pause();
         this.keyRight();
         this.keyLeft();
         this.keyJump();
@@ -170,21 +172,28 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
-            // this.walking_sound.play();
-        }
+            if (window.soundEnabled === false) {
+                this.walking_sound.play();
+            }
+        } 
     }
 
     keyLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
-            // this.walking_sound.play();
             this.otherDirection = true;
-        }
+            if (window.soundEnabled === false) {
+                this.walking_sound.play();
+            }
+        } 
     }
 
     keyJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            if (window.soundEnabled === false) {
+                this.jumping_sound.play();
+            }
         }
     }
 

@@ -2,6 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let startscreen;
+let sound = false;
+window.soundEnabled = false;
 
 window.stopButtonClicked = false;
 
@@ -81,8 +83,9 @@ window.addEventListener("touchstart", (b) => {
         console.log("space right_true");
     }
     if (b.target === toggleSound) {
-        keyboard.W = true;
-        console.log("space right_true");
+        sound = !sound; 
+        sound ? soundEnabled = true : soundEnabled = false;
+        console.log(`sound ${sound ? 'enabled' : 'disabled'}`);
     }
 });
 
@@ -92,7 +95,6 @@ window.addEventListener("touchend", (b) => {
     let throwleft = document.getElementById('throw_bottle_left');
     let throwright = document.getElementById('throw_bottle_right');
     let space = document.getElementById('space');
-    let toggleSound = document.getElementById('toggleSound');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
         console.log("left_false");
@@ -113,10 +115,6 @@ window.addEventListener("touchend", (b) => {
         keyboard.SPACE = false;
         console.log("space right_false");
     }
-    if (b.target === toggleSound) {
-        keyboard.W = false;
-        console.log("space right_true");
-    }
 });
 
 window.addEventListener("touchcancel", (b) => {
@@ -125,7 +123,6 @@ window.addEventListener("touchcancel", (b) => {
     let throwleft = document.getElementById('throw_bottle_left');
     let throwright = document.getElementById('throw_bottle_right');
     let space = document.getElementById('space');
-    let toggleSound = document.getElementById('toggleSound');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
         console.log("left_false");
@@ -145,10 +142,6 @@ window.addEventListener("touchcancel", (b) => {
     if (b.target === space) {
         keyboard.SPACE = false;
         console.log("space right_false");
-    }
-    if (b.target === toggleSound) {
-        keyboard.W = false;
-        console.log("space right_true");
     }
 });
 
