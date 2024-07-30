@@ -20,7 +20,7 @@ class ThrowableObject extends MovableObject {
     throwIntervalID;
 
     constructor(x, y) {
-        super().loadImage('../img/6_salsa_bottle/salsa_bottle.png');
+        super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATE);
         this.loadImages(this.IMAGES_SPLASH);
         this.world = world;

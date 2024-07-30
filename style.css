@@ -5,7 +5,7 @@ body {
     height: 100vh;
     width: 100vw;
     margin: 0;
-    background-image: url("../img/5_background/desert-background.jpg");
+    background-image: url("img/5_background/desert-background.jpg");
     background-size: cover;
     background-position: center;
     font-family: Caveat;
@@ -14,9 +14,6 @@ body {
 canvas {
     display: none;
     background-color: black;
-    /* border: 2px solid;
-    border-radius: 8px;
-    border-color: rgb(61, 61, 38); */
 }
 
 h1 {
@@ -155,10 +152,6 @@ p.descript {
     h1 {
         display: none;
     }
-
-    /* .settings {
-        display: none;
-    } */
 }
 
 @media only screen and (max-width: 980px) {
@@ -199,10 +192,10 @@ p.descript {
 
 @font-face {
     font-family: Madfont-Thorns;
-    src: url('../fonts/Madfont-Thorns/MADFB___.TTF');
+    src: url('fonts/Madfont-Thorns/MADFB___.TTF');
 }
 
 @font-face {
     font-family: Caveat;
-    src: url('../fonts/Caveat/Caveat-VariableFont_wght.ttf');
+    src: url('fonts/Caveat/Caveat-VariableFont_wght.ttf');
 }

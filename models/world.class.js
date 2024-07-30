@@ -15,6 +15,7 @@ class World {
     currentcollectbottle = 0;
     intervalIDs = [];
     direction;
+    setBar = false;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -51,6 +52,7 @@ class World {
         this.setStoppableInterval(this.checkThrowObjects, 200);
         this.setStoppableInterval(this.checkThrowCollision, 200);
         this.setStoppableInterval(this.checkCollisionsAbove, 200);
+        this.setStoppableInterval(this.checkStatusBarEndboss, 200);
     }
 
     spliceEnemie(e) {
@@ -80,7 +82,7 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D && this.throwObjekt()) {
             this.direction = this.character.otherDirection ? 'left' : 'right';
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.direction);
+            let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this.direction);
             this.ThrowableObject.push(bottle);
             let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
             this.updateStatusBarSalsa(thrownbottles);
@@ -118,6 +120,11 @@ class World {
         }
     }
 
+    checkStatusBarEndboss() {
+        if (this.character.x >= 2200) {
+            this.setBar = true;
+        }
+    }
 
     updateStatusBarSalsa(bottles) {
         let percentage = Math.min((bottles / this.maxBottles) * 100, 100);
@@ -192,7 +199,7 @@ class World {
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarSalsa);
 
-        if (this.character.x >= 2200) {
+        if (this.setBar) {
             this.addToMap(this.statusBarEndboss);
         }
 
@@ -221,15 +228,8 @@ class World {
 
     addObjectsToMap(objects) {
         objects.forEach(o => {
-            if (o.otherDirection) {
-                this.flipImage(o);
-            }
             o.draw(this.ctx);
             // o.drawFrame(this.ctx);
-
-            if (o.otherDirection) {
-                this.flipImageBack(o);
-            }
         });
     }
 
