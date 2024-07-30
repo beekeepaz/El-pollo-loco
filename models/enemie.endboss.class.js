@@ -61,7 +61,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -70,12 +69,10 @@ class Endboss extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);    
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
     gameOver() {
@@ -90,6 +87,7 @@ class Endboss extends MovableObject {
         this.setStoppableInterval(this.animationMove, 100);
         this.setStoppableInterval(this.automaticMove, 100);
         this.setStoppableInterval(this.gameOver, 100);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     animationMove() {

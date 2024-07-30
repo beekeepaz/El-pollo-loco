@@ -20,7 +20,6 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.findNonOverlappingPosition();
         this.animate();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -29,18 +28,17 @@ class Chicken extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
 
     animate() {
         this.setStoppableInterval(this.animationMove, 100);
         this.setStoppableInterval(this.automaticMove, 1000 / 60);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     animationMove() {

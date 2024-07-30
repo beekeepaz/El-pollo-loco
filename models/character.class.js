@@ -75,7 +75,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONGIDLE);
         this.animate();
         this.animateImages();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -84,12 +83,10 @@ class Character extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
     gameOver() {
@@ -104,6 +101,7 @@ class Character extends MovableObject {
         this.setStoppableInterval(this.animateMove, 1000 / 60);
         this.setStoppableInterval(this.applyGravityChar, 1000 / 25);
         this.setStoppableInterval(this.gameOver, 100);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     animateImages() {
@@ -183,7 +181,7 @@ class Character extends MovableObject {
             if (window.soundEnabled === true) {
                 this.walking_sound.play();
             }
-        } 
+        }
     }
 
     keyLeft() {
@@ -193,7 +191,7 @@ class Character extends MovableObject {
             if (window.soundEnabled === true) {
                 this.walking_sound.play();
             }
-        } 
+        }
     }
 
     keyJump() {

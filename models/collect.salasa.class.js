@@ -7,7 +7,7 @@ class SalsaBottle extends MovableObject {
         'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
     ];
 
-    static existingPositions = []; 
+    static existingPositions = [];
     intervalIDs = [];
 
     constructor() {
@@ -15,7 +15,6 @@ class SalsaBottle extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.setPosition();
         this.animate();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -24,26 +23,25 @@ class SalsaBottle extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);    
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
     animate() {
         this.setStoppableInterval(this.animationMove, 1000);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     setPosition() {
         let attempt = 0;
         let intervalID = setInterval(() => {
             this.x = 600 + Math.random() * 900;
-            if (!this.isOverlapping() || attempt >= 300) { 
+            if (!this.isOverlapping() || attempt >= 300) {
                 clearInterval(intervalID);
                 if (!this.isOverlapping()) {
-                    SalsaBottle.existingPositions.push(this.x); 
+                    SalsaBottle.existingPositions.push(this.x);
                 } else {
                     console.error('Unable to find a non-overlapping position');
                 }

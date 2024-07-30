@@ -29,7 +29,6 @@ class ThrowableObject extends MovableObject {
         this.height = 100;
         this.throw();
         this.animate();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -38,16 +37,15 @@ class ThrowableObject extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
     animate() {
         this.setStoppableInterval(this.animateMove, 100);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     checkSplash() {

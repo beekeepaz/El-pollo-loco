@@ -12,7 +12,7 @@ class ChickenYellow extends MovableObject {
     ];
     currentDead = false;
 
-    static existingPositions = [];
+    static existingChickens = [];
     intervalIDs = [];
 
     constructor() {
@@ -22,7 +22,6 @@ class ChickenYellow extends MovableObject {
         this.findNonOverlappingPosition();
         this.animate();
         this.applyGravity();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -34,7 +33,6 @@ class ChickenYellow extends MovableObject {
         if (window.stopButtonClicked) {
             this.intervalIDs.forEach(clearInterval);
             this.intervalIDs = [];
-            console.log(this.intervalIDs);
         }
     }
 
@@ -65,45 +63,38 @@ class ChickenYellow extends MovableObject {
         this.currentDead = true;
     }
 
+
     findNonOverlappingPosition() {
-        let attempt = 0;
         const intervalId = setInterval(() => {
-            let newX = 1600 + Math.random() * 900;
-            let newY = this.y;
-    
+            this.mathRandom();
             let positionFound = true;
-            for (let pos of ChickenYellow.existingPositions) {
-                if (ChickenYellow.isCollidingWithExisting(newX, newY, this.width, this.height)) {
+            for (let chicken of ChickenYellow.existingChickens) {
+                if (this.isTooClose(chicken)) {
                     positionFound = false;
                     break;
                 }
             }
-            
-            if (positionFound || attempt >= 200) {
+            if (positionFound) {
+                ChickenYellow.existingChickens.push(this);
                 clearInterval(intervalId);
-                if (positionFound) {
-                    this.x = newX;
-                    this.y = newY;
-                    ChickenYellow.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
-                } else {
-                    console.error('Unable to find a non-overlapping position');
-                }
             }
-            attempt++;
         }, 10);
-    
+
         setTimeout(() => {
             clearInterval(intervalId);
         }, 2000);
     }
-    
-    static isCollidingWithExisting(newX, newY, newWidth, newHeight) {
-        return ChickenYellow.existingPositions.some(pos =>
-            newX < pos.x + pos.width &&
-            newX + newWidth > pos.x &&
-            newY < pos.y + pos.height &&
-            newY + newHeight > pos.y
-        );
+
+    isTooClose(other) {
+        const minDistance = 228;
+        const dx = this.x - other.x;
+        const dy = this.y - other.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < minDistance;
     }
-    
+
+    mathRandom() {
+        this.x = 1600 + Math.random() * 900;
+    }
+   
 }

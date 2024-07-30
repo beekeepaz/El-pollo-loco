@@ -13,7 +13,6 @@ class Coins extends MovableObject {
         this.mathRandom();
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
-        this.stopGame();
     }
 
     setStoppableInterval(fn, time) {
@@ -22,16 +21,15 @@ class Coins extends MovableObject {
     }
 
     stopGame() {
-        setInterval(() => {
-            if (window.stopButtonClicked) {
-                this.intervalIDs.forEach(clearInterval);
-                this.intervalIDs = [];
-            }
-        }, 100);    
+        if (window.stopButtonClicked) {
+            this.intervalIDs.forEach(clearInterval);
+            this.intervalIDs = [];
+        }
     }
 
     animate() {
         this.setStoppableInterval(this.animationMove, 700);
+        this.setStoppableInterval(this.stopGame, 100);
     }
 
     mathRandom() {
