@@ -3,8 +3,8 @@ class Coins extends MovableObject {
     height = 68;
     width = 72;
     IMAGES_WALKING = [
-        '../img/8_coin/coin_1.png',
-        '../img/8_coin/coin_2.png'
+        'img/8_coin/coin_1.png',
+        'img/8_coin/coin_2.png'
     ];
     intervalIDs = [];
 

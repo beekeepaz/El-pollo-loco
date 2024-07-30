@@ -3,7 +3,7 @@ class CloudSecond extends MovableObject {
     width = 500;
     height = 250;
     BACKGROUND_IMAGE = [
-        '../img/5_background/layers/4_clouds/2.png'
+        'img/5_background/layers/4_clouds/2.png'
     ];
 
     static existingPositions = []; // Statische Liste, um Positionen zu speichern

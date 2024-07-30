@@ -3,7 +3,7 @@ class Cloud extends MovableObject {
     width = 500;
     height = 250;
     BACKGROUND_IMAGE = [
-        '../img/5_background/layers/4_clouds/1.png'
+        'img/5_background/layers/4_clouds/1.png'
     ];
 
     static existingPositions = []; 

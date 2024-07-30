@@ -3,13 +3,19 @@ let world;
 let keyboard = new Keyboard();
 let startscreen;
 let endscreen;
+let soundon;
+let soundoff;
 let sound = false;
 window.soundEnabled = false;
 window.stopButtonClicked = false;
 
 function setScreens() {
     endscreen = document.getElementById(`gameover_screen`);
+    soundon = document.getElementById(`toggleSoundon`);
+    soundoff = document.getElementById(`toggleSoundoff`);
     endscreen.classList.add('d-none');
+    soundon.classList.add('d-none')
+    soundoff.classList.remove(`d-none`);
 }
 
 function gameOver() {
@@ -82,25 +88,38 @@ window.addEventListener("touchstart", (b) => {
     let throwleft = document.getElementById('throw_bottle_left');
     let throwright = document.getElementById('throw_bottle_right');
     let space = document.getElementById('space');
-    let toggleSound = document.getElementById('toggleSound');
+    let toggleSoundoff = document.getElementById('toggleSoundoff');
+    let toggleSoundon = document.getElementById('toggleSoundon');
     if (b.target === leftButton) {
         keyboard.LEFT = true;
+        leftButton.style.opacity = "0.5";
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = true;
+        rightButton.style.opacity = "0.5";
     }
     if (b.target === throwleft) {
         keyboard.D = true;
+        throwleft.style.opacity = "0.5";
     }
     if (b.target === throwright) {
         keyboard.D = true;
+        throwright.style.opacity = "0.5";
     }
     if (b.target === space) {
         keyboard.SPACE = true;
+        space.style.opacity = "0.5";
     }
-    if (b.target === toggleSound) {
+    if (b.target === toggleSoundoff || b.target === toggleSoundon) {
         sound = !sound;
         sound ? soundEnabled = true : soundEnabled = false;
+    }
+    if (sound === false) {
+        soundon.classList.add(`d-none`);
+        soundoff.classList.remove(`d-none`);
+    } else if (sound === true) {
+        soundon.classList.remove(`d-none`);
+        soundoff.classList.add(`d-none`);
     }
 });
 
@@ -112,18 +131,23 @@ window.addEventListener("touchend", (b) => {
     let space = document.getElementById('space');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
+        leftButton.style.opacity = "1";
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = false;
+        rightButton.style.opacity = "1";
     }
     if (b.target === throwleft) {
         keyboard.D = false;
+        throwleft.style.opacity = "1";
     }
     if (b.target === throwright) {
         keyboard.D = false;
+        throwright.style.opacity = "1";
     }
     if (b.target === space) {
         keyboard.SPACE = false;
+        space.style.opacity = "1";
     }
 });
 

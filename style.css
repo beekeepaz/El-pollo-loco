@@ -71,18 +71,24 @@ h1 {
 .left-side {
     display: flex;
     flex-direction: column;
+    padding-bottom: 148px;
 }
 
 .right-side {
     display: flex;
     flex-direction: column;
+    padding-bottom: 148px;
 }
 
 button {
     background-color: rgba(240, 248, 255, 0.295);
     width: 120px;
     border-radius: 8px;
+    border: none;
     height: 32px;
+    font-family: Caveat;
+    font-size: larger;
+    color: yellow;
     cursor: pointer;
 }
 
@@ -109,12 +115,36 @@ img.s-i-size {
     height: 64px;
 }
 
-.left {
+img.left {
+    width: 64px;
     transform: rotate(180deg);
+    padding: 16px;
 }
 
-.up {
-    transform: rotate(-90deg);
+img.right {
+    width: 64px;
+    padding: 16px;
+}
+
+img.space {
+    width: 64px;
+    padding: 16px;
+}
+
+img.bottle {
+    width: 64px;
+    padding: 16px;
+}
+
+img.sound-off {
+    height: 32px;
+    width: 32px;
+}
+
+
+img.sound-on {
+    height: 32px;
+    width: 32px;
 }
 
 p.descript {
