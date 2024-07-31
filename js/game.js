@@ -10,6 +10,7 @@ window.soundEnabled = false;
 window.stopButtonClicked = false;
 
 function setScreens() {
+    toggleExitButton();
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
@@ -38,6 +39,8 @@ function endThisGame() {
 }
 
 function init() {
+    toggleInitButton();
+    closeMenu();
     window.stopButtonClicked = false;
     initLevel();
     setTimeout(() => {
@@ -51,7 +54,22 @@ function init() {
     }, 1000);
 }
 
+function toggleInitButton() {
+    let buttonstart = document.getElementById(`start`);
+    let buttonend = document.getElementById(`end`);
+    buttonstart.classList.add(`d-none`);
+    buttonend.classList.remove(`d-none`);
+}
+
+function toggleExitButton() {
+    let buttonstart = document.getElementById(`start`);
+    let buttonend = document.getElementById(`end`);
+    buttonstart.classList.remove(`d-none`);
+    buttonend.classList.add(`d-none`);
+}
+
 function exit() {
+    toggleExitButton();
     if (world) {
         world = null;
         canvas.classList.remove('d-block');
@@ -82,6 +100,22 @@ function exitFullscreen() {
     }
 }
 
+window.addEventListener("click", (b) => {
+    let toggleSoundoff = document.getElementById('toggleSoundoff');
+    let toggleSoundon = document.getElementById('toggleSoundon');
+    if (b.target === toggleSoundoff || b.target === toggleSoundon) {
+        sound = !sound;
+        sound ? soundEnabled = true : soundEnabled = false;
+    }
+    if (sound === false) {
+        soundon.classList.add(`d-none`);
+        soundoff.classList.remove(`d-none`);
+    } else if (sound === true) {
+        soundon.classList.remove(`d-none`);
+        soundoff.classList.add(`d-none`);
+    }
+});
+
 window.addEventListener("touchstart", (b) => {
     let leftButton = document.getElementById('left');
     let rightButton = document.getElementById('right');
@@ -92,23 +126,23 @@ window.addEventListener("touchstart", (b) => {
     let toggleSoundon = document.getElementById('toggleSoundon');
     if (b.target === leftButton) {
         keyboard.LEFT = true;
-        leftButton.style.opacity = "0.5";
+        leftButton.style.opacity = "1";
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = true;
-        rightButton.style.opacity = "0.5";
+        rightButton.style.opacity = "1";
     }
     if (b.target === throwleft) {
         keyboard.D = true;
-        throwleft.style.opacity = "0.5";
+        throwleft.style.opacity = "1";
     }
     if (b.target === throwright) {
         keyboard.D = true;
-        throwright.style.opacity = "0.5";
+        throwright.style.opacity = "1";
     }
     if (b.target === space) {
         keyboard.SPACE = true;
-        space.style.opacity = "0.5";
+        space.style.opacity = "1";
     }
     if (b.target === toggleSoundoff || b.target === toggleSoundon) {
         sound = !sound;
@@ -131,23 +165,23 @@ window.addEventListener("touchend", (b) => {
     let space = document.getElementById('space');
     if (b.target === leftButton) {
         keyboard.LEFT = false;
-        leftButton.style.opacity = "1";
+        leftButton.style.opacity = "0.5";
     }
     if (b.target === rightButton) {
         keyboard.RIGHT = false;
-        rightButton.style.opacity = "1";
+        rightButton.style.opacity = "0.5";
     }
     if (b.target === throwleft) {
         keyboard.D = false;
-        throwleft.style.opacity = "1";
+        throwleft.style.opacity = "0.5";
     }
     if (b.target === throwright) {
         keyboard.D = false;
-        throwright.style.opacity = "1";
+        throwright.style.opacity = "0.5";
     }
     if (b.target === space) {
         keyboard.SPACE = false;
-        space.style.opacity = "1";
+        space.style.opacity = "0.5";
     }
 });
 
@@ -263,4 +297,22 @@ function deleteBackgroundImage() {
     body.style.width = `100%`;
     body.style.height = `100%`;
     body.style.paddingBottom = `80px`;
+}
+
+function openMenu() {
+    let menu = document.getElementById(`place_top_menu`);
+    let menubutton = document.getElementById(`menu`);
+    menu.classList.remove(`d-none`);
+    menubutton.classList.add(`d-none`);
+}
+
+function noCloseContent(event) {
+    event.stopPropagation();
+}
+
+function closeMenu() {
+    let menu = document.getElementById(`place_top_menu`);
+    let menubutton = document.getElementById(`menu`);
+    menu.classList.add(`d-none`);
+    menubutton.classList.remove(`d-none`);
 }

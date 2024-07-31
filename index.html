@@ -39,16 +39,20 @@
         
     </header> -->
 
-    <div class="overlay" id="fullscreen">
+    <div class="overlay" id="fullscreen" onclick="closeMenu()">
         <canvas id="canvas" width="720" height="480">
         </canvas>
         <div class="settings">
             <div class="menu">
-                <button onclick="init()" id="start">Start</button>
-                <button onclick="endThisGame()" id="end">Ende</button>
-                <button onclick="fullscreen()" id="fullscreen">fullscreen</button>
-                <img class="sound-off" id="toggleSoundoff" src="img/1_editables/sound off.png">
-                <img class="sound-on" id="toggleSoundon" src="img/1_editables/sound on.png">
+                <div class="place-top-menu d-none" id="place_top_menu" onclick="noCloseContent(event)">
+                    <button onclick="init()" id="start">Start</button>
+                    <button onclick="endThisGame()" id="end">Ende</button>
+                    <button onclick="fullscreen()" id="fullscreen">fullscreen</button>
+                    <button onclick="descript()" id="descript">descript</button>
+                </div>
+                <div class="open-menu" id="menu" onclick="noCloseContent(event)">
+                    <button onclick="openMenu()">menu</button>
+                </div>
             </div>
             <div class="action-buttons">
                 <div class="left-side">
@@ -60,6 +64,10 @@
                     <img class="bottle" id="throw_bottle_right" src="img/6_salsa_bottle/1_salsa_bottle_on_ground.png">
                     <img class="right" id="right" src="img/1_editables/arrow.png">
                 </div>
+            </div>
+            <div class="sound">
+                <img class="sound-off" id="toggleSoundoff" src="img/1_editables/sound off.png">
+                <img class="sound-on" id="toggleSoundon" src="img/1_editables/sound on.png">
             </div>
         </div>
         <img class="start-screen" id="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
