@@ -234,3 +234,33 @@ window.addEventListener("keyup", (e) => {
         keyboard.W = false;
     }
 });
+
+function showImpressum() {
+    deleteBackgroundImage();
+    const cardimpressum = createHtmlImpressum();
+    const getplaceimpressum = document.getElementById('fullscreen');
+    const getplaceinput = document.getElementById('place_input');
+    getplaceimpressum.innerHTML = cardimpressum;
+    getplaceinput.innerHTML = createImpressumHtml();
+}
+
+function showDatenschutz() {
+    deleteBackgroundImage();
+    const cardDatenschutz = createHtmlDatenschutz();
+    const getplaceDatenschutz = document.getElementById('fullscreen');
+    const getplaceInput = document.getElementById('place_input');
+    getplaceDatenschutz.innerHTML = cardDatenschutz;
+    getplaceInput.innerHTML = createDatenschutzHtml();
+}
+
+function reLoad() {
+    location.reload();
+}
+
+function deleteBackgroundImage() {
+    let body = document.getElementById(`body`);
+    body.style.background = `none`;
+    body.style.width = `100%`;
+    body.style.height = `100%`;
+    body.style.paddingBottom = `80px`;
+}

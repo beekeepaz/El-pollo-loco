@@ -58,7 +58,7 @@ class World {
     spliceEnemie(e) {
         setTimeout(() => {
             this.level.enemies.splice(e, 1);
-        }, 1000);
+        }, 500);
     }
 
     collidingAboveSet(enemy, index) {

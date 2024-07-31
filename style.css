@@ -3,9 +3,9 @@ body {
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    width: 100vw;
     margin: 0;
     background-image: url("img/5_background/desert-background.jpg");
+    background-color: rgb(58, 10, 10);
     background-size: cover;
     background-position: center;
     font-family: Caveat;
@@ -16,11 +16,139 @@ canvas {
     background-color: black;
 }
 
-h1 {
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border-bottom: 1px solid;
+    border-color: rgb(179, 145, 53);
+    background-color: rgb(48, 17, 17);
+    box-shadow: 0px 0px 8px 8px rgb(179, 145, 53);
+    color: rgb(179, 145, 53);
+    height: 80px; */
+    width: 100%;
+    top: 0;
+    position: sticky;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(58, 10, 10);
+    border-top: 1px solid;
+    border-color: rgb(179, 145, 53);
+    height: 80px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+}
+
+.place-footer-elements {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-right: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(179, 145, 53);
+}
+
+a:hover {
+    color: rgb(199, 206, 211);
+}
+
+.the-line {
+    margin-left: 8px;
+    margin-right: 8px;
+    border: 1px solid;
+    border-color: rgb(179, 145, 53);
+    height: 16px;
+}
+
+.impressum {
+    padding-left: 32px;
+    padding-right: 32px;
+    background-color: rgb(58, 10, 10);
+    color: rgb(179, 145, 53);
+    font-size: 24px;
+}
+
+.place-impressum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: rgb(58, 10, 10);
+}
+
+.impressum-header {
+    padding-right: 32px;
+}
+
+.color-btn{
+    background-color: rgb(48, 17, 17);
+}
+
+.original-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-decoration: none;
+    color: rgb(179, 145, 53);
+    background-color: rgb(58, 10, 10);
+    font-size: 18px;
+    border-radius: 0px;
+    width: 200px;
+    height: 40px;
+    position: relative;
+    transition: 0.4s;
+    overflow: hidden;
+    border: none;
+}
+
+.original-button:hover {
+    cursor: pointer;
+    color: rgb(214, 204, 175);
+}
+
+.original-button::before,
+.original-button::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    background-color: rgb(179, 145, 53);
+    transition: .3s;
+}
+
+.original-button::before {
+    top: 0;
+}
+
+.original-button::after {
+    bottom: 0;
+}
+
+.original-button:hover::before {
+    transform: translateX(-100%);
+}
+
+.original-button:hover::after {
+    transform: translateX(100%);
+}
+
+/* h1 {
     font-size: 64px;
     font-family: Madfont-Thorns;
     color: rgb(61, 61, 38);
-}
+} */
 
 .settings {
     display: flex;
@@ -41,7 +169,7 @@ h1 {
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
 }
 
 .single-line {
@@ -146,6 +274,24 @@ img.sound-on {
 
 p.descript {
     padding-left: 16px;
+}
+
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 145, 53);
+    border-radius: 6px;
+    border: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(204, 186, 135);
 }
 
 @media (max-width: 900px) {

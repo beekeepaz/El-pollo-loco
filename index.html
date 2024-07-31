@@ -29,11 +29,15 @@
     <script src="models/enemie.endboss.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/html.js"></script>
     <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body onload="setScreens()">
+<body id="body" onload="setScreens()">
+    <!-- <header>
+        
+    </header> -->
 
     <div class="overlay" id="fullscreen">
         <canvas id="canvas" width="720" height="480">
@@ -48,7 +52,7 @@
             </div>
             <div class="action-buttons">
                 <div class="left-side">
-                    <img class="bottle" id="throw_bottle_left" src="img/6_salsa_bottle/2_salsa_bottle_on_ground.png"> 
+                    <img class="bottle" id="throw_bottle_left" src="img/6_salsa_bottle/2_salsa_bottle_on_ground.png">
                     <img class="left" id="left" src="img/1_editables/arrow.png">
                 </div>
                 <img class="space" id="space" src="img/1_editables/space.png">
@@ -62,8 +66,20 @@
         <img class="end-screen" id="gameover_screen" src="img/9_intro_outro_screens/game_over/game over.png">
     </div>
 
-    <!-- <a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Speaker icons created by Pixel perfect - Flaticon</a> -->
-    <!-- <a target="_blank" href="https://icons8.com/icon/10389/sombrero">Sombrero</a> Icon von <a target="_blank" href="https://icons8.com">Icons8</a> -->
+    <footer id="footer">
+        <div class="place-footer-elements">
+            <a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Flaticon</a>
+            <div class="the-line"></div>
+            <a target="_blank" href="https://icons8.com/icon/10389/sombrero"></a><a target="_blank"
+                href="https://icons8.com">Icons8</a>
+        </div>
+        <div id="place_input"></div>
+        <div class="place-footer-elements">
+            <a onclick="showDatenschutz()" href="#">Datenschutz</a>
+            <div class="the-line"></div>
+            <a onclick="showImpressum()" href="#">Impressum</a>
+        </div>
+    </footer>
 
 </body>
 
