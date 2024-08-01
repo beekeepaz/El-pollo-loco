@@ -6,8 +6,16 @@ let endscreen;
 let soundon;
 let soundoff;
 let sound = false;
+let supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 window.soundEnabled = false;
 window.stopButtonClicked = false;
+
+window.addEventListener(orientationEvent, function() {
+    if (window.innerWidth < 900) {
+        alert('HOLY ROTATING SCREENS BATMAN:');
+    }
+}, false);
 
 function setScreens() {
     toggleExitButton();
@@ -316,3 +324,7 @@ function closeMenu() {
     menu.classList.add(`d-none`);
     menubutton.classList.remove(`d-none`);
 }
+
+window.addEventListener(orientationEvent, function() {
+    alert('HOLY ROTATING SCREENS BATMAN:');
+}, false);
