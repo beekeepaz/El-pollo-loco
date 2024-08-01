@@ -6,24 +6,18 @@ let endscreen;
 let soundon;
 let soundoff;
 let sound = false;
-let supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 window.soundEnabled = false;
 window.stopButtonClicked = false;
-
-window.addEventListener(orientationEvent, function() {
-    if (window.innerWidth < 900) {
-        alert('HOLY ROTATING SCREENS BATMAN:');
-    }
-}, false);
 
 function setScreens() {
     toggleExitButton();
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
+    // let oversrceen = document.getElementById(`show_field`);
+    // oversrceen.classList.remove(`d-none`);
     endscreen.classList.add('d-none');
-    soundon.classList.add('d-none')
+    soundon.classList.add('d-none');
     soundoff.classList.remove(`d-none`);
 }
 
@@ -130,8 +124,6 @@ window.addEventListener("touchstart", (b) => {
     let throwleft = document.getElementById('throw_bottle_left');
     let throwright = document.getElementById('throw_bottle_right');
     let space = document.getElementById('space');
-    let toggleSoundoff = document.getElementById('toggleSoundoff');
-    let toggleSoundon = document.getElementById('toggleSoundon');
     if (b.target === leftButton) {
         keyboard.LEFT = true;
         leftButton.style.opacity = "1";
@@ -151,17 +143,6 @@ window.addEventListener("touchstart", (b) => {
     if (b.target === space) {
         keyboard.SPACE = true;
         space.style.opacity = "1";
-    }
-    if (b.target === toggleSoundoff || b.target === toggleSoundon) {
-        sound = !sound;
-        sound ? soundEnabled = true : soundEnabled = false;
-    }
-    if (sound === false) {
-        soundon.classList.add(`d-none`);
-        soundoff.classList.remove(`d-none`);
-    } else if (sound === true) {
-        soundon.classList.remove(`d-none`);
-        soundoff.classList.add(`d-none`);
     }
 });
 
@@ -276,55 +257,3 @@ window.addEventListener("keyup", (e) => {
         keyboard.W = false;
     }
 });
-
-function showImpressum() {
-    deleteBackgroundImage();
-    const cardimpressum = createHtmlImpressum();
-    const getplaceimpressum = document.getElementById('fullscreen');
-    const getplaceinput = document.getElementById('place_input');
-    getplaceimpressum.innerHTML = cardimpressum;
-    getplaceinput.innerHTML = createImpressumHtml();
-}
-
-function showDatenschutz() {
-    deleteBackgroundImage();
-    const cardDatenschutz = createHtmlDatenschutz();
-    const getplaceDatenschutz = document.getElementById('fullscreen');
-    const getplaceInput = document.getElementById('place_input');
-    getplaceDatenschutz.innerHTML = cardDatenschutz;
-    getplaceInput.innerHTML = createDatenschutzHtml();
-}
-
-function reLoad() {
-    location.reload();
-}
-
-function deleteBackgroundImage() {
-    let body = document.getElementById(`body`);
-    body.style.background = `none`;
-    body.style.width = `100%`;
-    body.style.height = `100%`;
-    body.style.paddingBottom = `80px`;
-}
-
-function openMenu() {
-    let menu = document.getElementById(`place_top_menu`);
-    let menubutton = document.getElementById(`menu`);
-    menu.classList.remove(`d-none`);
-    menubutton.classList.add(`d-none`);
-}
-
-function noCloseContent(event) {
-    event.stopPropagation();
-}
-
-function closeMenu() {
-    let menu = document.getElementById(`place_top_menu`);
-    let menubutton = document.getElementById(`menu`);
-    menu.classList.add(`d-none`);
-    menubutton.classList.remove(`d-none`);
-}
-
-window.addEventListener(orientationEvent, function() {
-    alert('HOLY ROTATING SCREENS BATMAN:');
-}, false);

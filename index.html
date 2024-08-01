@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El pollo loco</title>
+    <link rel="preload" href="fonts/Caveat/Caveat-VariableFont_wght.ttf" as="font" type="font/ttf"
+        crossorigin="anonymous">
+    <link rel="preload" href="fonts/Madfont-Thorns/MADFB___.TTF" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="img/1_editables/favicon.png">
 
     <script src="models/drawable-object.class.js"></script>
@@ -30,16 +33,14 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
     <script src="js/html.js"></script>
+    <script src="js/script.js"></script>
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body id="body" onload="setScreens()">
-    <!-- <header>
-        
-    </header> -->
 
-    <div class="overlay" id="fullscreen" onclick="closeMenu()">
+    <section class="overlay" id="fullscreen" onclick="closeMenu()">
         <canvas id="canvas" width="720" height="480">
         </canvas>
         <div class="settings">
@@ -72,9 +73,59 @@
         </div>
         <img class="start-screen" id="start_screen" src="img/9_intro_outro_screens/start/startscreen_1.png">
         <img class="end-screen" id="gameover_screen" src="img/9_intro_outro_screens/game_over/game over.png">
-    </div>
+    </section>
 
-    <footer id="footer">
+    <section id='show_descript' class="descript-card d-none">
+        <button onclick="descriptBack()">Back</button>
+        <h1>Pepe Peligrosa, der gefährliche Pepe...</h1>
+        <p>... ist nach schwerer Arbeit auf seinem Hof in der Mittagshitze
+            eingeschlafen, im Fibertraum sind alle Hühner aus ihren Stellen entflohen und verwüsten nun sein Haus
+            und Hof. Die gesamten Münzen sind in der Gegend verteilt, selbst vor der Salza haben die Hühner keinen halt
+            gemacht.
+        </p>
+        <p>
+            Deine Aufgabe ist es, alle Münzen und Salza-Flaschen einzusammeln, die verrückt gewordenen Hühner
+            zu bekämpfen und am Ende die Huhn-Mutter Gisela zu besiegen. um wieder aufzuwachen.
+            Springe auf die Hühne um diese zu besiegen oder lass sie ziehen.
+            Mit den gesammelten Flaschen kannst du Giesela besiegen.
+        </p>
+        <div class="line"></div>
+        <h1>Steuerung</h1>
+        <div class="p-bottom">
+            <p>
+                Links: Pfeiltaste Links
+            </p>
+            <p>
+                Rechts: Pfeiltaste Rechts
+            </p>
+            <p>
+                Springen: Leertaste
+            </p>
+            <p>
+                Salza Flasche werfen: Taste D
+            </p>
+        </div>
+        <footer id="footer">
+            <div class="place-footer-elements">
+                <a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Flaticon</a>
+                <div class="the-line"></div>
+                <a target="_blank" href="https://icons8.com/icon/10389/sombrero"></a><a target="_blank"
+                    href="https://icons8.com">Icons8</a>
+            </div>
+            <div class="place-footer-elements">
+                <a onclick="showDatenschutz()" href="#">Datenschutz</a>
+                <div class="the-line"></div>
+                <a onclick="showImpressum()" href="#">Impressum</a>
+            </div>
+        </footer>
+        <!-- <button onclick="descriptBack()">Back</button> -->
+    </section>
+
+    <section id='show_field' class="message-card d-none">
+        <h1>Please Turn Your Device</h1>
+    </section>
+
+    <!-- <footer id="footer">
         <div class="place-footer-elements">
             <a href="https://www.flaticon.com/free-icons/speaker" title="speaker icons">Flaticon</a>
             <div class="the-line"></div>
@@ -82,12 +133,12 @@
                 href="https://icons8.com">Icons8</a>
         </div>
         <div id="place_input"></div>
-        <div class="place-footer-elements">
-            <a onclick="showDatenschutz()" href="#">Datenschutz</a>
-            <div class="the-line"></div>
-            <a onclick="showImpressum()" href="#">Impressum</a>
-        </div>
-    </footer>
+    <div class="place-footer-elements">
+        <a onclick="showDatenschutz()" href="#">Datenschutz</a>
+        <div class="the-line"></div>
+        <a onclick="showImpressum()" href="#">Impressum</a>
+    </div>
+    </footer> -->
 
 </body>
 

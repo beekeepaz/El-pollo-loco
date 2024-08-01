@@ -61,9 +61,9 @@ class Character extends MovableObject {
     ];
     world;
     intervalIDs = [];
-    walking_sound = new Audio("../audio/run.mp3");
-    jumping_sound = new Audio("../audio/jump.mp3");
-    snoring_sound = new Audio("../audio/snore.mp3");
+    walking_sound = new Audio("audio/run.mp3");
+    jumping_sound = new Audio("audio/jump.mp3");
+    snoring_sound = new Audio("audio/snore.mp3");
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);

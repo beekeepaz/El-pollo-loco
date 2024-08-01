@@ -63,6 +63,15 @@ a:hover {
     height: 16px;
 }
 
+.line {
+    margin-left: 8px;
+    margin-right: 8px;
+    border: 1px solid;
+    border-color: rgb(179, 145, 53);
+    height: 1px;
+    width: 100%;
+}
+
 .impressum {
     padding-left: 32px;
     padding-right: 32px;
@@ -83,7 +92,7 @@ a:hover {
     padding-right: 32px;
 }
 
-.color-btn{
+.color-btn {
     background-color: rgb(48, 17, 17);
 }
 
@@ -172,9 +181,41 @@ a:hover {
     font-size: 32px;
 }
 
+.message-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(24, 26, 27, 0.822);
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 32px;
+}
+
+.descript-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(24, 26, 27, 0.918);
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 32px;
+    color: rgb(255, 152, 0);
+    font-size: 24px;
+}
+
 .menu {
     display: flex;
-    height: 50%;
+    height: 100%;
     width: 100%;
 }
 
@@ -196,7 +237,7 @@ a:hover {
 }
 
 .action-buttons {
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: end;
     height: 50%;
@@ -206,13 +247,13 @@ a:hover {
 .left-side {
     display: flex;
     flex-direction: column;
-    padding-bottom: 148px;
+    padding-bottom: 132px;
 }
 
 .right-side {
     display: flex;
     flex-direction: column;
-    padding-bottom: 148px;
+    padding-bottom: 132px;
 }
 
 button {
@@ -222,7 +263,7 @@ button {
     border: none;
     height: 32px;
     font-family: Caveat;
-    font-size: larger;
+    font-size: 20px;
     color: rgb(177, 134, 16);
     cursor: pointer;
 }
@@ -299,6 +340,13 @@ p.descript {
     padding-left: 16px;
 }
 
+.p-bottom {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding-bottom: 80px;
+}
+
 ::-webkit-scrollbar {
     width: 16px;
 }
@@ -318,9 +366,21 @@ p.descript {
 }
 
 @media (max-width: 900px) {
-    h1 {
+    .action-buttons {
+        display: flex;
+    }
+
+    .menu {
+        height: 50%;
+    }
+
+    footer {
         display: none;
     }
+
+    /* .message-card {
+        display: flex;
+    } */
 }
 
 @media only screen and (max-width: 980px) {
@@ -362,9 +422,15 @@ p.descript {
 @font-face {
     font-family: Madfont-Thorns;
     src: url('fonts/Madfont-Thorns/MADFB___.TTF');
+    font-style: normal;
+    font-display: swap;
+    crossorigin: 'anonymous';
 }
 
 @font-face {
     font-family: Caveat;
     src: url('fonts/Caveat/Caveat-VariableFont_wght.ttf');
+    font-style: normal;
+    font-display: swap;
+    crossorigin: 'anonymous';
 }
