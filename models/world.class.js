@@ -16,6 +16,11 @@ class World {
     intervalIDs = [];
     direction;
     setBar = false;
+    attack_sound = new Audio("audio/chicken.mp3");
+    attack_boss_sound = new Audio("audio/hit-endboss.mp3");
+    game_sound = new Audio("audio/Beginning.mp3");
+    coin_sound = new Audio("audio/coins.mp3");
+    bottle_sound = new Audio("audio/bottle.mp3");
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -42,7 +47,7 @@ class World {
                 this.intervalIDs.forEach(clearInterval);
                 this.intervalIDs = [];
             }
-        }, 100);    
+        }, 100);
     }
 
     run() {
@@ -58,6 +63,7 @@ class World {
     spliceEnemie(e) {
         setTimeout(() => {
             this.level.enemies.splice(e, 1);
+            this.dead_sound.pause();
         }, 500);
     }
 
@@ -66,6 +72,9 @@ class World {
             enemy.checkDeadInstanz(enemy);
             this.spliceEnemie(index);
             this.character.jumpAt();
+            if (window.soundEnabled === true) {
+                this.attack_sound.play();
+            }
             return true;
         }
         return false;
@@ -107,6 +116,9 @@ class World {
             enemy.checkDeadInstanz(enemy);
             throwbottle.checkThrowInstanz(throwbottle);
             this.spliceEnemie(e);
+            if (window.soundEnabled === true) {
+                this.attack_sound.play();
+            }
             return true;
         }
         return false;
@@ -117,6 +129,9 @@ class World {
             throwbottle.checkBossInstanz(this.bigboss);
             this.statusBarEndboss.setPercentage(this.bigboss.energy);
             throwbottle.checkThrowInstanz(throwbottle);
+            if (window.soundEnabled === true) {
+                this.attack_boss_sound.play();
+            }
         }
     }
 
@@ -136,6 +151,9 @@ class World {
     }
 
     checkCollisions() {
+        if (window.soundEnabled === true) {
+            this.game_sound.play();
+        }
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isJumping() || this.character.isColliding(this.bigboss)) {
                 this.character.hit();
@@ -150,6 +168,9 @@ class World {
             if (this.character.isColliding(coins)) {
                 this.character.collectCoin();
                 this.level.coins.splice(index, 1);
+                if (window.soundEnabled === true) {
+                    this.coin_sound.play();
+                }
                 updated = true;
             }
         });
@@ -171,6 +192,9 @@ class World {
             if (this.character.isColliding(salsabottle)) {
                 this.character.collectBottle();
                 this.level.salsabottle.splice(index, 1);
+                if (window.soundEnabled === true) {
+                    this.bottle_sound.play();
+                }
                 updated = true;
             }
         });

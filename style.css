@@ -92,67 +92,6 @@ a:hover {
     padding-right: 32px;
 }
 
-.color-btn {
-    background-color: rgb(48, 17, 17);
-}
-
-.original-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    text-decoration: none;
-    color: rgb(179, 145, 53);
-    background-color: rgb(58, 10, 10);
-    font-size: 18px;
-    border-radius: 0px;
-    width: 200px;
-    height: 40px;
-    position: relative;
-    transition: 0.4s;
-    overflow: hidden;
-    border: none;
-}
-
-.original-button:hover {
-    cursor: pointer;
-    color: rgb(214, 204, 175);
-}
-
-.original-button::before,
-.original-button::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    background-color: rgb(179, 145, 53);
-    transition: .3s;
-}
-
-.original-button::before {
-    top: 0;
-}
-
-.original-button::after {
-    bottom: 0;
-}
-
-.original-button:hover::before {
-    transform: translateX(-100%);
-}
-
-.original-button:hover::after {
-    transform: translateX(100%);
-}
-
-/* h1 {
-    font-size: 64px;
-    font-family: Madfont-Thorns;
-    color: rgb(61, 61, 38);
-} */
-
 .settings {
     display: flex;
     flex-direction: column;
@@ -254,6 +193,14 @@ a:hover {
     display: flex;
     flex-direction: column;
     padding-bottom: 132px;
+}
+
+img {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 button {
@@ -373,14 +320,6 @@ p.descript {
     .menu {
         height: 50%;
     }
-
-    footer {
-        display: none;
-    }
-
-    /* .message-card {
-        display: flex;
-    } */
 }
 
 @media only screen and (max-width: 980px) {

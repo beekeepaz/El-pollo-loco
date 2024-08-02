@@ -66,3 +66,9 @@ window.addEventListener("orientationchange", function () {
             oversrceen.classList.remove(`d-none`);
     }
 });
+
+window.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});

@@ -32,6 +32,9 @@ function gameOverScreen() {
         endscreen = document.getElementById(`gameover_screen`);
         canvas.classList.remove('d-block');
         endscreen.classList.remove('d-none');
+        setTimeout(() => {
+            reLoad();
+        }, 3000);
     }
 }
 
@@ -76,6 +79,14 @@ function exit() {
         world = null;
         canvas.classList.remove('d-block');
         startscreen.classList.remove('d-none');
+    }
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        fullscreen(document.documentElement);
+    } else {
+        exitFullscreen();
     }
 }
 
