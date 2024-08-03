@@ -14,8 +14,6 @@ function setScreens() {
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
-    // let oversrceen = document.getElementById(`show_field`);
-    // oversrceen.classList.remove(`d-none`);
     endscreen.classList.add('d-none');
     soundon.classList.add('d-none');
     soundoff.classList.remove(`d-none`);

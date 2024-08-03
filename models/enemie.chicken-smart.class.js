@@ -19,7 +19,7 @@ class ChickenYellow extends MovableObject {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.findNonOverlappingPosition();
+        this.setPosition();
         this.animate();
         this.applyGravity();
     }
@@ -63,28 +63,20 @@ class ChickenYellow extends MovableObject {
         this.currentDead = true;
     }
 
-
-    findNonOverlappingPosition() {
+    setPosition() {
         const intervalId = setInterval(() => {
             this.mathRandom();
-            let positionFound = true;
-            for (let chicken of ChickenYellow.existingChickens) {
-                if (this.isTooClose(chicken)) {
-                    positionFound = false;
-                    break;
-                }
-            }
-            if (positionFound) {
-                ChickenYellow.existingChickens.push(this);
-                clearInterval(intervalId);
-            }
+            let positionFound = ChickenYellow.existingChickens.every(chicken => !this.isTooClose(chicken));
+            positionFound ? (ChickenYellow.existingChickens.push(this), clearInterval(intervalId)) 
+                          : null;
         }, 10);
-
-        setTimeout(() => {
-            clearInterval(intervalId);
-        }, 2000);
+        this.stopIntervalAfterTimeout(intervalId, 2000);
     }
 
+    stopIntervalAfterTimeout(intervalId, timeout) {
+        setTimeout(() => clearInterval(intervalId), timeout);
+    }
+     
     isTooClose(other) {
         const minDistance = 228;
         const dx = this.x - other.x;

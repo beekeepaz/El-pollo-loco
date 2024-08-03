@@ -6,34 +6,37 @@ class CloudSecond extends MovableObject {
         'img/5_background/layers/4_clouds/2.png'
     ];
 
-    static existingPositions = []; // Statische Liste, um Positionen zu speichern
+    static existingPositions = [];
 
     constructor() {
         super().loadImage(this.BACKGROUND_IMAGE[0]);
-        this.findNonOverlappingPosition();
+        this.setPosition();
         this.animate();
     }
 
-    findNonOverlappingPosition() {
+    setPosition() {
         const intervalId = setInterval(() => {
-            let newX = 1200 + Math.random() * 2400; 
+            let newX = 1200 + Math.random() * 2400;
             let newY = this.y;
 
-            if (!CloudSecond.isCollidingWithExisting(newX, newY, this.width, this.height)) {
+            let positionFound = !CloudSecond.isCollidingWithExisting(newX, newY, this.width, this.height);
+            if (positionFound) {
                 this.x = newX;
                 this.y = newY;
                 Cloud.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
                 clearInterval(intervalId);
             }
-        }, 10); 
+        }, 10);
 
-        setTimeout(() => {
-            clearInterval(intervalId);
-        }, 2000); 
+        this.stopIntervalAfterTimeout(intervalId, 2000);
+    }
+
+    stopIntervalAfterTimeout(intervalId, timeout) {
+        setTimeout(() => clearInterval(intervalId), timeout);
     }
 
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {
-        return CloudSecond.existingPositions.some(pos => 
+        return CloudSecond.existingPositions.some(pos =>
             newX < pos.x + pos.width &&
             newX + newWidth > pos.x &&
             newY < pos.y + pos.height &&

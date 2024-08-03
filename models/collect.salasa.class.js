@@ -36,31 +36,38 @@ class SalsaBottle extends MovableObject {
 
     setPosition() {
         let attempt = 0;
-        let intervalID = setInterval(() => {
-            this.x = 600 + Math.random() * 900;
-            if (!this.isOverlapping() || attempt >= 300) {
-                clearInterval(intervalID);
-                if (!this.isOverlapping()) {
-                    SalsaBottle.existingPositions.push(this.x);
-                } else {
-                    console.error('Unable to find a non-overlapping position');
-                }
-            }
-            attempt++;
-        }, 400);
+        let intervalID = setInterval(() => this.trySetPosition(intervalID, attempt++), 400);
+        this.stopIntervalAfterTimeout(intervalID, 2000);
+    }
 
+    trySetPosition(intervalID, attempt) {
+        this.mathRandom();
+        (!this.isOverlapping() || attempt >= 300) ? clearInterval(intervalID) : null;
+        this.handlePosition(attempt);
+    }
+
+    handlePosition(attempt) {
+        !this.isOverlapping() && attempt < 300 ?
+            SalsaBottle.existingPositions.push(this.x) :
+            (attempt >= 300 ? console.error('Unable to find a non-overlapping position') : null);
+    }
+
+    stopIntervalAfterTimeout(intervalID, timeout) {
         setTimeout(() => {
             clearInterval(intervalID);
-        }, 2000);
+        }, timeout);
+    }
+
+    mathRandom() {
+        this.x = 600 + Math.random() * 900;
     }
 
     isOverlapping() {
-        for (let pos of SalsaBottle.existingPositions) {
-            if (Math.abs(this.x - pos) < this.width) {
-                return true;
-            }
-        }
-        return false;
+        let isOverlapping = false;
+        SalsaBottle.existingPositions.forEach(pos => {
+            isOverlapping = Math.abs(this.x - pos) < this.width ? true : isOverlapping;
+        });
+        return isOverlapping;
     }
 
     animationMove() {

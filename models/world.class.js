@@ -58,12 +58,12 @@ class World {
         this.setStoppableInterval(this.checkThrowCollision, 200);
         this.setStoppableInterval(this.checkCollisionsAbove, 200);
         this.setStoppableInterval(this.checkStatusBarEndboss, 200);
+        this.setStoppableInterval(this.gameSound, 200);
     }
 
     spliceEnemie(e) {
         setTimeout(() => {
             this.level.enemies.splice(e, 1);
-            this.dead_sound.pause();
         }, 500);
     }
 
@@ -72,12 +72,40 @@ class World {
             enemy.checkDeadInstanz(enemy);
             this.spliceEnemie(index);
             this.character.jumpAt();
-            if (window.soundEnabled === true) {
-                this.attack_sound.play();
-            }
+            this.attackedSound();
             return true;
         }
         return false;
+    }
+
+    attackedSound() {
+        if (window.soundEnabled === true) {
+            this.attack_sound.play();
+        }
+    }
+
+    attackedBossSound() {
+        if (window.soundEnabled === true) {
+            this.attack_boss_sound.play();
+        }
+    }
+
+    collectedCoinSound() {
+        if (window.soundEnabled === true) {
+            this.coin_sound.play();
+        }
+    }
+
+    collectedBottleSound() {
+        if (window.soundEnabled === true) {
+            this.bottle_sound.play();
+        }
+    }
+
+    gameSound() {
+        if (window.soundEnabled === true) {
+            this.game_sound.play();
+        }
     }
 
     checkCollisionsAbove() {
@@ -116,9 +144,7 @@ class World {
             enemy.checkDeadInstanz(enemy);
             throwbottle.checkThrowInstanz(throwbottle);
             this.spliceEnemie(e);
-            if (window.soundEnabled === true) {
-                this.attack_sound.play();
-            }
+            this.attackedSound();
             return true;
         }
         return false;
@@ -129,9 +155,7 @@ class World {
             throwbottle.checkBossInstanz(this.bigboss);
             this.statusBarEndboss.setPercentage(this.bigboss.energy);
             throwbottle.checkThrowInstanz(throwbottle);
-            if (window.soundEnabled === true) {
-                this.attack_boss_sound.play();
-            }
+            this.attackedBossSound();
         }
     }
 
@@ -151,9 +175,6 @@ class World {
     }
 
     checkCollisions() {
-        if (window.soundEnabled === true) {
-            this.game_sound.play();
-        }
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isJumping() || this.character.isColliding(this.bigboss)) {
                 this.character.hit();
@@ -168,9 +189,7 @@ class World {
             if (this.character.isColliding(coins)) {
                 this.character.collectCoin();
                 this.level.coins.splice(index, 1);
-                if (window.soundEnabled === true) {
-                    this.coin_sound.play();
-                }
+                this.collectedCoinSound();
                 updated = true;
             }
         });
@@ -192,9 +211,7 @@ class World {
             if (this.character.isColliding(salsabottle)) {
                 this.character.collectBottle();
                 this.level.salsabottle.splice(index, 1);
-                if (window.soundEnabled === true) {
-                    this.bottle_sound.play();
-                }
+                this.collectedBottleSound();
                 updated = true;
             }
         });
@@ -212,13 +229,34 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.heigth);
+        this.clearCanvas();
+        this.drawBackground();
+        this.drawStatusBars();
+        this.drawLevelObjects();
+        this.drawCharactersAndEnemies();
+        this.requestNextFrame();
+    }
 
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    translateCanvas() {
         this.ctx.translate(this.camera_x, 0);
+    }
+
+    resetTranslation() {
+        this.ctx.translate(-this.camera_x, 0);
+    }
+
+    drawBackground() {
+        this.translateCanvas();
         this.addObjectsToMap(this.level.backgroundsObjects);
         this.addObjectsToMap(this.level.clouds);
+        this.resetTranslation();
+    }
 
-        this.ctx.translate(-this.camera_x, 0);
+    drawStatusBars() {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarSalsa);
@@ -226,24 +264,25 @@ class World {
         if (this.setBar) {
             this.addToMap(this.statusBarEndboss);
         }
+    }
 
-        this.ctx.translate(this.camera_x, 0);
-
+    drawLevelObjects() {
+        this.translateCanvas();
         this.addObjectsToMap(this.level.salsabottle);
         this.addObjectsToMap(this.level.coins);
+        this.resetTranslation();
+    }
 
-        this.ctx.translate(-this.camera_x, 0);
-
-        this.ctx.translate(this.camera_x, 0);
-
+    drawCharactersAndEnemies() {
+        this.translateCanvas();
         this.addToMap(this.bigboss);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.ThrowableObject);
+        this.resetTranslation();
+    }
 
-        this.ctx.translate(-this.camera_x, 0);
-
-
+    requestNextFrame() {
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -253,7 +292,6 @@ class World {
     addObjectsToMap(objects) {
         objects.forEach(o => {
             o.draw(this.ctx);
-            // o.drawFrame(this.ctx);
         });
     }
 
@@ -262,7 +300,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

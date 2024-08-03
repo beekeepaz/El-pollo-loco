@@ -19,42 +19,38 @@ class MovableObject extends DrawableObject {
     longIdleTimeout;
 
     lastStand() {
-        if (this.lastidle !== 1 && this.lastlongidle !== 2) {
-            this.laststand = 0;
-            this.laststandTimout = setTimeout(() => {
+        (this.lastidle !== 1 && this.lastlongidle !== 2)
+            ? (this.laststand = 0, this.laststandTimout = setTimeout(() => {
                 this.lastidle = 9;
                 this.lastlongidle = 9;
-            }, 1000);
-        };
-        if (this.laststand === 0) {
-            return true;
-        };
+            }, 1000))
+            : null;
+
+        return (this.laststand === 0) ? true : undefined;
     }
 
     lastIdle() {
-        if (this.lastidle === 9 && this.lastlongidle === 9) {
-            this.idleTimeout = setTimeout(() => {
+        (this.lastidle === 9 && this.lastlongidle === 9)
+            ? this.idleTimeout = setTimeout(() => {
                 this.laststand = 9;
                 this.lastidle = 1;
                 this.lastlongidle = 9;
-            }, 1000);
-        };
-        if (this.lastidle === 1) {
-            return true;
-        };
+            }, 1000)
+            : null;
+
+        return (this.lastidle === 1) ? true : undefined;
     }
 
     lastLongIdle() {
-        if (this.lastidle === 9 && this.lastlongidle === 9) {
-            this.longIdleTimeout = setTimeout(() => {
+        (this.lastidle === 9 && this.lastlongidle === 9)
+            ? this.longIdleTimeout = setTimeout(() => {
                 this.laststand = 9;
                 this.lastidle = 9;
                 this.lastlongidle = 2;
-            }, 4000);
-        };
-        if (this.lastlongidle === 2) {
-            return true;
-        };
+            }, 4000)
+            : null;
+
+        return (this.lastlongidle === 2) ? true : undefined;
     }
 
     resetIdle() {
@@ -80,15 +76,10 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
-            return true;
-        } else if (this instanceof ChickenYellow) {
-            return this.y < 352;
-        } else if (this instanceof Endboss) {
-            return this.y < 60;
-        } else {
-            return this.y < 148;
-        };
+        return (this instanceof ThrowableObject) ? true :
+            (this instanceof ChickenYellow) ? this.y < 352 :
+                (this instanceof Endboss) ? this.y < 60 :
+                    this.y < 148;
     }
 
     isOnGround() {
@@ -151,18 +142,26 @@ class MovableObject extends DrawableObject {
     }
 
     isColliding(mo) {
-        if (this instanceof Character) {
-            return this.x + this.width > mo.x &&
-                this.y + 100 + (this.height - 100) > mo.y &&
-                this.x < mo.x + mo.width &&
-                this.y + 100 < mo.y + mo.height;
-        } else {
-            return this.x + this.width > mo.x &&
-                this.y + this.height > mo.y &&
-                this.x < mo.x &&
-                this.y < mo.y + mo.height;
-        }
+        return this instanceof Character
+            ? this.characterColliding(mo)
+            : this.allColliding(mo);
     }
+
+
+    characterColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + 100 + (this.height - 100) > mo.y &&
+            this.x < mo.x + mo.width &&
+            this.y + 100 < mo.y + mo.height;
+    }
+
+    allColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+    }
+
 
     collectCoin() {
         this.salsacoins += 1;

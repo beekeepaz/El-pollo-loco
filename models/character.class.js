@@ -128,12 +128,7 @@ class Character extends MovableObject {
     }
 
     applyGravityChar() {
-        if (this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration;
-        } else {
-            this.speedY = 0;
-        }
+        (this.isAboveGround() || this.speedY > 0) ? (this.y -= this.speedY, this.speedY -= this.acceleration) : this.speedY = 0;
     }
 
     moveAnimation() {

@@ -94,20 +94,28 @@ class Endboss extends MovableObject {
         this.updateAnimation();
     }
 
-    automaticMove() {
-        if (this.isMoving() && !this.movementStarted) {
-            if (!this.attackAnimationStarted) {
-                this.attackAnimationStarted = true;
-                setTimeout(() => {
-                    this.movementStarted = true;
-                    setInterval(() => {
-                        this.moveLeft();
-                    }, 1000 / 60);
-                }, 3000);
-            }
-        }
+    moveInterval() {
+        return setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
     }
-
+    
+    moveAfterTime() {
+        setTimeout(() => {
+            this.movementStarted = true;
+            this.moveInterval();
+        }, 3000);
+    }
+    
+    automaticMove() {
+        this.isMoving() && !this.movementStarted ? (
+            !this.attackAnimationStarted ? (
+                this.attackAnimationStarted = true,
+                this.moveAfterTime()
+            ) : null
+        ) : null;
+    }
+  
     isMoving() {
         return this.world.character.x >= 2200;
     }
@@ -119,19 +127,13 @@ class Endboss extends MovableObject {
     }
 
     getCurrentState() {
-        if (this.isDead()) {
-            return 'dead';
-        } else if (this.isHurt()) {
-            return 'hurt';
-        } else if (this.attackAnimationStarted && !this.movementStarted || this.speed === 2.4) {
-            return 'bossAttack';
-        } else if (this.isMoving()) {
-            return 'moving';
-        } else {
-            return 'moving';
-        }
+        return this.isDead() ? 'dead' :
+               this.isHurt() ? 'hurt' :
+               (this.attackAnimationStarted && !this.movementStarted) || this.speed === 2.4 ? 'bossAttack' :
+               this.isMoving() ? 'moving' :
+               'moving';
     }
-
+   
     getImagesForState(state) {
         const stateToImagesMap = {
             dead: this.IMAGES_DEAD,
