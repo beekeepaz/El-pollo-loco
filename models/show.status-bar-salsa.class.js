@@ -18,12 +18,20 @@ class StatusBarSalsa extends DrawableObject {
         this.setPercentage(0);
     }
 
+    /**
+     * Sets the percentage and updates the image based on that percentage.
+     * @param {number} percentage - The percentage to set, which influences the image to be displayed.
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.cacheImage[path];
     }
 
+    /**
+     * Determines the index of the image to be displayed based on the current percentage.
+     * @returns {number} The index of the image corresponding to the current percentage.
+     */
     resolveImageIndex() {
         return this.percentage === 100 ? 5 :
             this.percentage > 80 ? 4 :

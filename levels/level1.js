@@ -1,5 +1,9 @@
 let level1;
 
+/**
+ * Initializes the game level with various game objects if the stop button hasn't been clicked.
+ * If the stop button has been clicked, it sets `level1` to null.
+ */
 function initLevel() {
     if (window.stopButtonClicked === false) {
         level1 = null;

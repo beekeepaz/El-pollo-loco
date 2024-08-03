@@ -9,6 +9,12 @@ let sound = false;
 window.soundEnabled = false;
 window.stopButtonClicked = false;
 
+
+/**
+ * This function sets up the screens for the game.
+ * It handles the visibility of the exit button, the game over screen,
+ * and sound toggles.
+ */
 function setScreens() {
     toggleExitButton();
     endscreen = document.getElementById(`gameover_screen`);
@@ -19,11 +25,19 @@ function setScreens() {
     soundoff.classList.remove(`d-none`);
 }
 
+/**
+ * This function handles the game over state.
+ * It sets a flag to indicate that the stop button has been clicked
+ * and then triggers the display of the game over screen.
+ */
 function gameOver() {
     window.stopButtonClicked = true;
     gameOverScreen();
 }
 
+/**
+ * Displays the game over screen and reloads the game after a 3-second delay.
+ */
 function gameOverScreen() {
     if (world) {
         world = null;
@@ -36,16 +50,30 @@ function gameOverScreen() {
     }
 }
 
+/**
+ * Marks the game as stopped and exits the game.
+ */
 function endThisGame() {
     window.stopButtonClicked = true;
     exit();
 }
 
+/**
+ * Initializes the game by setting up various components and states.
+ */
 function init() {
     toggleInitButton();
     closeMenu();
     window.stopButtonClicked = false;
     initLevel();
+    initSettings();
+}
+
+/**
+ * Initializes the game settings by setting up the canvas and screens,
+ * and creating a new game world after a 1-second delay
+ */
+function initSettings() {
     setTimeout(() => {
         canvas = document.getElementById(`canvas`);
         startscreen = document.getElementById(`start_screen`);
@@ -57,6 +85,10 @@ function init() {
     }, 1000);
 }
 
+/**
+ * Toggles the visibility of the start and end buttons.
+ * Hides the start button and shows the end button.
+ */
 function toggleInitButton() {
     let buttonstart = document.getElementById(`start`);
     let buttonend = document.getElementById(`end`);
@@ -64,6 +96,10 @@ function toggleInitButton() {
     buttonend.classList.remove(`d-none`);
 }
 
+/**
+ * Toggles the visibility of the start and end buttons.
+ * Shows the start button and hides the end button.
+ */
 function toggleExitButton() {
     let buttonstart = document.getElementById(`start`);
     let buttonend = document.getElementById(`end`);
@@ -71,6 +107,10 @@ function toggleExitButton() {
     buttonend.classList.add(`d-none`);
 }
 
+/**
+ * Handles the exit process for the game.
+ * It toggles the exit button visibility and resets the game state if necessary.
+ */
 function exit() {
     toggleExitButton();
     if (world) {
@@ -80,6 +120,10 @@ function exit() {
     }
 }
 
+/**
+ * Toggles fullscreen mode on or off.
+ * Enters fullscreen mode if not already in fullscreen; otherwise, exits fullscreen.
+ */
 function toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
         fullscreen(document.documentElement);
@@ -88,11 +132,19 @@ function toggleFullscreen() {
     }
 }
 
+/**
+  * Requests fullscreen mode for the specified element.
+ */
 function fullscreen() {
     let fullscreen = document.getElementById('fullscreen');
     enterFullscreen(fullscreen);
 }
 
+/**
+ * Requests fullscreen mode for the given element.
+ * Supports standard and vendor-prefixed fullscreen requests.
+ * @param {Element} element - The DOM element to be displayed in fullscreen mode.
+ */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -103,6 +155,10 @@ function enterFullscreen(element) {
     }
 }
 
+/**
+ * Exits fullscreen mode if currently active.
+ * Supports standard and vendor-prefixed fullscreen exit methods.
+ */
 function exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -111,6 +167,10 @@ function exitFullscreen() {
     }
 }
 
+/**
+ * Toggles the sound settings when the sound control buttons are clicked.
+ * Updates the visibility of the sound control buttons based on the current sound state.
+ */
 window.addEventListener("click", (b) => {
     let toggleSoundoff = document.getElementById('toggleSoundoff');
     let toggleSoundon = document.getElementById('toggleSoundon');
@@ -127,6 +187,10 @@ window.addEventListener("click", (b) => {
     }
 });
 
+/**
+ * Handles touch start events to update control states and button appearance.
+ * Adjusts the opacity of control buttons based on user interaction.
+ */
 window.addEventListener("touchstart", (b) => {
     let leftButton = document.getElementById('left');
     let rightButton = document.getElementById('right');
@@ -155,6 +219,10 @@ window.addEventListener("touchstart", (b) => {
     }
 });
 
+/**
+ * Handles touch end events to update control states and button appearance.
+ * Adjusts the opacity of control buttons when touch ends.
+ */
 window.addEventListener("touchend", (b) => {
     let leftButton = document.getElementById('left');
     let rightButton = document.getElementById('right');
@@ -183,6 +251,10 @@ window.addEventListener("touchend", (b) => {
     }
 });
 
+/**
+ * Handles touch cancel events to update control states when a touch is interrupted.
+ * Ensures control states are reset if the touch is canceled.
+ */
 window.addEventListener("touchcancel", (b) => {
     let leftButton = document.getElementById('left');
     let rightButton = document.getElementById('right');
@@ -206,6 +278,10 @@ window.addEventListener("touchcancel", (b) => {
     }
 });
 
+/**
+ * Handles keydown events to update control states based on pressed keys.
+ * Updates the keyboard state for movement and action keys.
+ */
 window.addEventListener("keydown", (e) => {
     // console.log(e.keyCode);
     if (e.keyCode == 39) {
@@ -237,6 +313,10 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+/**
+ * Handles keyup events to update control states when keys are released.
+ * Resets the keyboard state for movement and action keys.
+ */
 window.addEventListener("keyup", (e) => {
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;

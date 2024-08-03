@@ -1,3 +1,8 @@
+/**
+ * Generates HTML markup for the impressum section.
+ * Includes a back button that reloads the page when clicked.
+ * @returns {string} The HTML string for the impressum section.
+ */
 function createImpressumHtml() {
     return `
         <div class="place-impressum">
@@ -6,6 +11,11 @@ function createImpressumHtml() {
     `;
 }
 
+/**
+ * Generates HTML markup for the impressum (legal notice) section.
+ * Includes contact information, legal disclaimers, and copyright details.
+ * @returns {string} The HTML string for the impressum section.
+ */
 function createHtmlImpressum() {
     return `
     <div class='impressum'><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>Sebastian Peters <br> 
@@ -28,6 +38,11 @@ function createHtmlImpressum() {
     `;
 }
 
+/**
+ * Generates HTML markup for the Datenschutz (privacy policy) section.
+ * Includes a back button that reloads the page when clicked.
+ * @returns {string} The HTML string for the Datenschutz section.
+ */
 function createDatenschutzHtml() {
     return `
         <div class="place-impressum">
@@ -36,6 +51,10 @@ function createDatenschutzHtml() {
     `;
 }
 
+/**
+ * Generates HTML markup for the Datenschutz (privacy policy) section.
+ * @returns {string} The HTML string for the Datenschutz section.
+ */
 function createHtmlDatenschutz() {
     return `
     <div class='impressum'><h1>1. Datenschutz auf einen Blick</h1><p>Allgemeine Hinweise</p>

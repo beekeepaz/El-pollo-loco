@@ -78,11 +78,19 @@ class Character extends MovableObject {
         this.animateImages();
     }
 
+    /**
+    * Sets an interval that can be stopped later.
+    * @param {Function} fn - The function to be executed repeatedly.
+    * @param {number} time - The time interval (in milliseconds) between executions.
+     */
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
     }
 
+    /**
+     * Stops all running intervals if the stop button was clicked.
+     */
     stopGame() {
         if (window.stopButtonClicked) {
             this.intervalIDs.forEach(clearInterval);
@@ -90,6 +98,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the game is over and calls the gameOver function after 1 second if the player is dead.
+     */
     gameOver() {
         if (this.isDead()) {
             setTimeout(() => {
@@ -98,6 +109,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Sets up intervals for animating the game, including movement, gravity, game over checks, and stopping the game.
+     */
     animate() {
         this.setStoppableInterval(this.animateMove, 1000 / 60);
         this.setStoppableInterval(this.applyGravityChar, 1000 / 25);
@@ -105,6 +119,9 @@ class Character extends MovableObject {
         this.setStoppableInterval(this.stopGame, 100);
     }
 
+    /**
+     * Sets up intervals for animating images and playing sounds.
+     */
     animateImages() {
         this.setStoppableInterval(this.moveAnimation, 100);
         this.setStoppableInterval(this.lastStandAnimation, 200);
@@ -113,12 +130,18 @@ class Character extends MovableObject {
         this.setStoppableInterval(this.soundHit, 100);
     }
 
+    /**
+     * Plays a sound when the object is hurt, if sound is enabled.
+     */
     soundHit() {
         if (window.soundEnabled === true && this.isHurt()) {
             this.hurt_sound.play();
         }
     }
 
+    /**
+     * Handles character movement animation by pausing walking sound and processing key inputs.
+     */
     animateMove() {
         this.walking_sound.pause();
         this.keyRight();
@@ -127,10 +150,16 @@ class Character extends MovableObject {
         this.charPosition();
     }
 
+    /**
+     * Applies gravity to the character, adjusting its vertical position and speed.
+     */
     applyGravityChar() {
         (this.isAboveGround() || this.speedY > 0) ? (this.y -= this.speedY, this.speedY -= this.acceleration) : this.speedY = 0;
     }
 
+    /**
+     * Controls the animation of the character based on its state.
+     */
     moveAnimation() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
@@ -147,28 +176,44 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Handles the last stand animation if the character is standing still and walking animation is set.
+     */
     lastStandAnimation() {
         if (this.lastStand() && this.setWalkingAnimation()) {
             this.setGroundImage();
         };
     }
 
+    /**
+     * Plays the idle animation if the character is in an idle state and walking animation is set.
+     */
     lastIdleAnimation() {
         if (this.lastIdle() && this.setWalkingAnimation()) {
             this.playAnimation(this.IMAGES_IDLE);
         }
     }
 
+    /**
+     * Plays the long idle animation if the character is in a long idle state and walking animation is set.
+     */
     lastLongIdleAnimation() {
         if (this.lastLongIdle() && this.setWalkingAnimation()) {
             this.playAnimation(this.IMAGES_LONGIDLE);
         };
     }
 
+    /**
+     * Sets the ground image by loading the image specified for jumping.
+     */
     setGroundImage() {
         this.loadImage(this.IMAGES_JUMPING[8]);
     }
 
+    /**
+     * Checks if the walking animation should be set.
+     * @returns {boolean} True if the character is not above ground, not moving left or right, and not dead or hurt.
+     */
     setWalkingAnimation() {
         return !this.isAboveGround() &&
             !this.world.keyboard.LEFT &&
@@ -177,6 +222,10 @@ class Character extends MovableObject {
             !this.isHurt();
     }
 
+    /**
+     * Moves the character to the right if the right arrow key is pressed and the character is within the level bounds.
+     * Plays the walking sound if the character is on the ground and sound is enabled.
+     */
     keyRight() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
@@ -187,6 +236,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Moves the character to the left if the left arrow key is pressed and the character is within the level bounds.
+     * Plays the walking sound if the character is on the ground and sound is enabled.
+     */
     keyLeft() {
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
@@ -197,6 +250,10 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Makes the character jump if the space key is pressed and the character is on the ground.
+     * Plays the jumping sound if sound is enabled.
+     */
     keyJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
@@ -206,6 +263,9 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Updates the camera position to follow the character.
+     */
     charPosition() {
         this.world.camera_x = -this.x + 100;
     }

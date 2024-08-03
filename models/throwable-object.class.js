@@ -31,11 +31,19 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+    * Sets an interval that can be stopped later.
+    * @param {Function} fn - The function to be executed repeatedly.
+    * @param {number} time - The time interval (in milliseconds) between executions.
+     */
     setStoppableInterval(fn, time) {
         let id = setInterval(fn.bind(this), time);
         this.intervalIDs.push(id);
     }
 
+    /**
+     * Stops all running intervals if the stop button was clicked.
+     */
     stopGame() {
         if (window.stopButtonClicked) {
             this.intervalIDs.forEach(clearInterval);
@@ -43,15 +51,26 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Starts the animation by setting up intervals for moving and stopping the game.
+     */
     animate() {
         this.setStoppableInterval(this.animateMove, 100);
         this.setStoppableInterval(this.stopGame, 100);
     }
 
+    /**
+     * Sets the current splash status to true.
+     */
     checkSplash() {
         this.currentSplash = true;
     }
 
+    /**
+     * Initiates the throwing action for the object.
+     * Sets the vertical speed of the object, applies gravity, and starts an interval to repeatedly throw the object.
+     * Stops the throwing action after 2 seconds.
+     */
     throw() {
         this.speedY = 30;
         this.applyGravity();
@@ -62,6 +81,10 @@ class ThrowableObject extends MovableObject {
         }, 2000);
     }
 
+    /**
+     * Moves the object horizontally based on the world's direction.
+     * Adjusts the position of the object by 10 units to the right or left, depending on the direction of the world.
+     */
     throwThisObject() {
         if (this.world.direction === 'right') {
             this.x += 10;
@@ -70,6 +93,10 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    /**
+     * Animates the object based on its current state.
+     * Plays the splash animation if `currentSplash` is true; otherwise, plays the rotate animation.
+     */
     animateMove() {
         if (this.currentSplash) {
             this.playAnimation(this.IMAGES_SPLASH);

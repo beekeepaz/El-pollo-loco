@@ -14,6 +14,10 @@ class Cloud extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Finds a non-overlapping position for the cloud by generating random coordinates
+     * and checking for collisions with existing positions.
+     */
     findNonOverlappingPosition() {
         const intervalId = setInterval(() => {
             let newX = Math.random() * 1500;
@@ -30,10 +34,23 @@ class Cloud extends MovableObject {
         this.stopIntervalAfterTimeout(intervalId, 2000);
     }
 
+    /**
+     * Stops an interval after a specified timeout period.
+     * @param {number} intervalId - The ID of the interval to be cleared.
+     * @param {number} timeout - The timeout period in milliseconds before clearing the interval.
+     */
     stopIntervalAfterTimeout(intervalId, timeout) {
         setTimeout(() => clearInterval(intervalId), timeout);
     }
 
+    /**
+     * Checks if the new position collides with any existing positions.
+     * @param {number} newX - The x-coordinate of the new position.
+     * @param {number} newY - The y-coordinate of the new position.
+     * @param {number} newWidth - The width of the new object.
+     * @param {number} newHeight - The height of the new object.
+     * @returns {boolean} - True if there is a collision, false otherwise.
+     */
     static isCollidingWithExisting(newX, newY, newWidth, newHeight) {
         return Cloud.existingPositions.some(pos =>
             newX < pos.x + pos.width &&
@@ -43,6 +60,9 @@ class Cloud extends MovableObject {
         );
     }
 
+    /**
+     * Executes the animation logic by moving the object left.
+     */
     animate() {
         this.moveLeft();
     }
