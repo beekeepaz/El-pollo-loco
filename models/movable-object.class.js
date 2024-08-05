@@ -109,16 +109,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Checks if the object is on the ground.
-     * @returns {boolean} True if on the ground, false otherwise.
-     */
-    isOnGround() {
-        if (this instanceof Character) {
-            return this.y = 148;
-        }
-    }
-
-    /**
      * Plays the animation by cycling through the provided images.
      * @param {string[]} images - An array of image paths for the animation.
      */
@@ -200,16 +190,44 @@ class MovableObject extends DrawableObject {
 
     /**
      * Checks if the object is colliding with another object from above.
-     * @param {*} enemy - The enemy object to check collision against.
+     * @param {object} enemy - The enemy object to check collision against.
      * @returns {boolean} `true` if the object is colliding with the enemy from above; otherwise, `false`.
      */
     isCollidingAbove(enemy) {
-        if (this.isJumping() && !this.isHurt()) {
+        if (this.isFalling() && this.isJumping()) {
             return this.x + this.width > enemy.x &&
-                this.y + (this.height + 16) > enemy.y &&
+                this.y + (this.height + 24) > enemy.y &&
                 this.x < enemy.x &&
                 this.y < enemy.y + enemy.height;
         }
+    }
+
+    /**
+     * Checks if the object is falling.
+     * @returns {boolean} True if the object is falling, otherwise false.
+     */
+    isFalling() {
+        return this.speedY < 0 && !this.isOnGround();
+    }
+
+    /**
+     * Checks if the object is on the ground.
+     * @returns {boolean} True if on the ground, false otherwise.
+     */
+    isOnGround() {
+        return this.y >= this.groundLevel();
+    }
+
+    /**
+     * Returns the ground level based on the instance type.
+     * @returns {number} The ground level value.
+     */
+    groundLevel() {
+        return (this instanceof ThrowableObject) ? 0 :
+            (this instanceof ChickenYellow) ? 352 :
+                (this instanceof Endboss) ? 60 :
+                    (this instanceof Character) ? 148 :
+                        0;
     }
 
     /**
@@ -229,10 +247,12 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} - True if colliding, false otherwise. 
      */
     characterColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + 100 + (this.height - 100) > mo.y &&
-            this.x < mo.x + mo.width &&
-            this.y + 100 < mo.y + mo.height;
+        if (!this.isFalling()) {
+            return this.x + this.width > mo.x &&
+                this.y + 100 + (this.height - 100) > mo.y &&
+                this.x < mo.x + mo.width &&
+                this.y + 100 < mo.y + mo.height;
+        }
     }
 
     /**

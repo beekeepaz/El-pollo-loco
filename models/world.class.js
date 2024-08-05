@@ -13,6 +13,8 @@ class World {
     ThrowableObject = [];
     maxBottles = 13;
     currentcollectbottle = 0;
+    lastThrowTime = 0;
+    throwCooldown = 2000;
     intervalIDs = [];
     direction;
     setBar = false;
@@ -162,12 +164,14 @@ class World {
      * Checks if the throw key is pressed and handles the throwing of objects.
      */
     checkThrowObjects() {
-        if (this.keyboard.D && this.throwObjekt()) {
+        const now = Date.now();
+        if (this.keyboard.D && this.throwObjekt() && now - this.lastThrowTime >= this.throwCooldown) {
             this.direction = this.character.otherDirection ? 'left' : 'right';
             let bottle = new ThrowableObject(this.character.x, this.character.y + 100, this.direction);
             this.ThrowableObject.push(bottle);
             let thrownbottles = this.currentcollectbottle - this.ThrowableObject.length;
             this.updateStatusBarSalsa(thrownbottles);
+            this.lastThrowTime = now;
         }
     }
 

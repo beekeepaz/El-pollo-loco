@@ -1,13 +1,17 @@
+// function setFooter() {
+//     let footer = creatFooterHtml();
+//     let getPlaceFooter = document.getElementById(`footer`);
+//     getPlaceFooter.innerHTML = footer;
+// }
+
 /**
  * Displays the Impressum (legal notice) content on the page.
  */
 function showImpressum() {
     deleteBackgroundImage();
-    const cardimpressum = createHtmlImpressum();
-    const getplaceimpressum = document.getElementById('fullscreen');
-    const getplaceinput = document.getElementById('place_input');
+    let cardimpressum = createHtmlImpressum();
+    let getplaceimpressum = document.getElementById('fullscreen');
     getplaceimpressum.innerHTML = cardimpressum;
-    getplaceinput.innerHTML = createImpressumHtml();
 }
 
 /**
@@ -15,17 +19,15 @@ function showImpressum() {
  */
 function showDatenschutz() {
     deleteBackgroundImage();
-    const cardDatenschutz = createHtmlDatenschutz();
-    const getplaceDatenschutz = document.getElementById('fullscreen');
-    const getplaceInput = document.getElementById('place_input');
+    let cardDatenschutz = createHtmlDatenschutz();
+    let getplaceDatenschutz = document.getElementById('fullscreen');
     getplaceDatenschutz.innerHTML = cardDatenschutz;
-    getplaceInput.innerHTML = createDatenschutzHtml();
 }
 
 /**
  * Reloads the current page.
  */
-function reLoad() {
+function impressumBack() {
     location.reload();
 }
 
@@ -34,11 +36,24 @@ function reLoad() {
  */
 function deleteBackgroundImage() {
     let body = document.getElementById(`body`);
-    body.style.background = `none`;
+    body.style.background = 'none';
     body.style.width = `100%`;
     body.style.height = `100%`;
-    body.style.paddingBottom = `80px`;
+    // body.style.paddingBottom = `80px`;
 }
+
+// function impressumBack() {
+//     setBackgroundImage();
+//     let getplaceDatenschutz = document.getElementById('fullscreen');
+//     getplaceDatenschutz.innerHTML = '';
+// }
+
+// function setBackgroundImage() {
+//     let body = document.getElementById('body');
+//     body.style.backgroundImage = 'url("img/5_background/desert-background.jpg")';
+//     body.style.width = '';
+//     body.style.height = '100vh';
+// }
 
 /**
 * Shows the menu by removing the 'd-none' class from it and hides the menu button.

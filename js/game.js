@@ -17,6 +17,7 @@ window.stopButtonClicked = false;
  */
 function setScreens() {
     toggleExitButton();
+    // setFooter();
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
@@ -42,12 +43,24 @@ function gameOverScreen() {
     if (world) {
         world = null;
         endscreen = document.getElementById(`gameover_screen`);
+        startscreen = document.getElementById(`start_screen`);
         canvas.classList.remove('d-block');
         endscreen.classList.remove('d-none');
-        setTimeout(() => {
-            reLoad();
-        }, 3000);
+        reloadStartScreen();
     }
+}
+
+/**
+ * This function hides the end screen and shows the start screen after a delay of 3 seconds.
+ */
+function reloadStartScreen() {
+    endscreen = document.getElementById(`gameover_screen`);
+    startscreen = document.getElementById(`start_screen`);
+    setTimeout(() => {
+        endscreen.classList.add('d-none');
+        startscreen.classList.remove('d-none');
+        toggleExitButton();
+    }, 2500);
 }
 
 /**
