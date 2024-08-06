@@ -146,6 +146,8 @@ class World {
     gameSound() {
         if (window.soundEnabled === true) {
             this.game_sound.play();
+        } else {
+            this.game_sound.pause();
         }
     }
 

@@ -1,9 +1,3 @@
-// function setFooter() {
-//     let footer = creatFooterHtml();
-//     let getPlaceFooter = document.getElementById(`footer`);
-//     getPlaceFooter.innerHTML = footer;
-// }
-
 /**
  * Displays the Impressum (legal notice) content on the page.
  */
@@ -39,21 +33,7 @@ function deleteBackgroundImage() {
     body.style.background = 'none';
     body.style.width = `100%`;
     body.style.height = `100%`;
-    // body.style.paddingBottom = `80px`;
 }
-
-// function impressumBack() {
-//     setBackgroundImage();
-//     let getplaceDatenschutz = document.getElementById('fullscreen');
-//     getplaceDatenschutz.innerHTML = '';
-// }
-
-// function setBackgroundImage() {
-//     let body = document.getElementById('body');
-//     body.style.backgroundImage = 'url("img/5_background/desert-background.jpg")';
-//     body.style.width = '';
-//     body.style.height = '100vh';
-// }
 
 /**
 * Shows the menu by removing the 'd-none' class from it and hides the menu button.
@@ -100,20 +80,28 @@ function descriptBack() {
 }
 
 /**
- * Hides or shows an element based on the device's orientation.
- * - Hides the element when in landscape mode (90° or -90°).
- * - Shows the element when in portrait mode (other angles)
+ * Toggles "d-none" class on "show_field" based on orientation.
  */
 window.addEventListener("orientationchange", function () {
-    let oversrceen = document.getElementById(`show_field`);
-    switch (window.orientation) {
-        case -90: case 90:
-            oversrceen.classList.add(`d-none`);
-            break;
-        default:
-            oversrceen.classList.remove(`d-none`);
+    let oversrceen = document.getElementById("show_field");
+    if (window.innerHeight > window.innerWidth) {
+        oversrceen.classList.add("d-none");
+    } else {
+        oversrceen.classList.remove("d-none");
     }
 });
+
+/**
+ * Initial check on page load
+ */
+function setMobile() {
+    let oversrceen = document.getElementById("show_field");
+    if (window.innerHeight > window.innerWidth) {
+        oversrceen.classList.remove("d-none");
+    } else {
+        oversrceen.classList.add("d-none");
+    }
+};
 
 /**
  * Prevents the context menu from appearing on right-click for images.

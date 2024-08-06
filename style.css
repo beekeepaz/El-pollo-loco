@@ -381,7 +381,7 @@ p.descript {
     background-color: rgb(204, 186, 135);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .action-buttons {
         display: flex;
     }
@@ -392,6 +392,10 @@ p.descript {
 
     .responsive-imp {
         display: flex;
+    }
+
+    footer {
+        display: none;
     }
 }
 

@@ -17,7 +17,7 @@ window.stopButtonClicked = false;
  */
 function setScreens() {
     toggleExitButton();
-    // setFooter();
+    setMobile();
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
