@@ -194,9 +194,9 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} `true` if the object is colliding with the enemy from above; otherwise, `false`.
      */
     isCollidingAbove(enemy) {
-        if (this.isFalling() && this.isJumping()) {
+        if (this.isFalling()) {
             return this.x + this.width > enemy.x &&
-                this.y + (this.height + 24) > enemy.y &&
+                this.y + this.height > enemy.y &&
                 this.x < enemy.x &&
                 this.y < enemy.y + enemy.height;
         }

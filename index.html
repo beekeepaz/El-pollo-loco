@@ -44,7 +44,7 @@
         <canvas id="canvas" width="720" height="480">
         </canvas>
         <div class="settings">
-            <div class="menu">
+            <div class="menu" id="menue">
                 <div class="place-top-menu d-none" id="place_top_menu" onclick="noCloseContent(event)">
                     <button onclick="init()" id="start">Start</button>
                     <button onclick="endThisGame()" id="end">Ende</button>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="action-buttons">
+            <div class="action-buttons" id="action_buttons">
                 <div class="left-side">
                     <img class="bottle" id="throw_bottle_left" src="img/6_salsa_bottle/2_salsa_bottle_on_ground.png">
                     <img class="left" id="left" src="img/1_editables/arrow.png">
@@ -138,7 +138,7 @@
     </footer>
 
     <section id='show_field' class="message-card d-none">
-        <h1>Please Turn Your Device</h1>
+        <h1 class="turn">Please Turn Your Device</h1>
     </section>
 
 </body>

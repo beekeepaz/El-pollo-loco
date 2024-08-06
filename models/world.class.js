@@ -59,6 +59,7 @@ class World {
             if (window.stopButtonClicked) {
                 this.intervalIDs.forEach(clearInterval);
                 this.intervalIDs = [];
+                this.game_sound.pause();
             }
         }, 100);
     }

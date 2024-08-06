@@ -127,7 +127,17 @@ class Character extends MovableObject {
         this.setStoppableInterval(this.lastStandAnimation, 200);
         this.setStoppableInterval(this.lastIdleAnimation, 200);
         this.setStoppableInterval(this.lastLongIdleAnimation, 200);
+        this.setStoppableInterval(this.grounded, 100);
         this.setStoppableInterval(this.soundHit, 100);
+    }
+
+    /**
+     * set ground postion
+     */
+    grounded() {
+        if (this.isOnGround()) {
+            this.y = 164;
+        }
     }
 
     /**
