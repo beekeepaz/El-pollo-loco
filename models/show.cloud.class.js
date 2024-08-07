@@ -29,7 +29,7 @@ class Cloud extends MovableObject {
                 Cloud.existingPositions.push({ x: this.x, y: this.y, width: this.width, height: this.height });
                 clearInterval(intervalId);
             }
-        }, 10);
+        }, 1000 / 120);
 
         this.stopIntervalAfterTimeout(intervalId, 2000);
     }

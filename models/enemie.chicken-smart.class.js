@@ -91,7 +91,7 @@ class ChickenYellow extends MovableObject {
             let positionFound = ChickenYellow.existingChickens.every(chicken => !this.isTooClose(chicken));
             positionFound ? (ChickenYellow.existingChickens.push(this), clearInterval(intervalId))
                 : null;
-        }, 10);
+        }, 1000 / 120);
         this.stopIntervalAfterTimeout(intervalId, 2000);
     }
 

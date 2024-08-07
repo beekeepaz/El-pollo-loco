@@ -87,11 +87,11 @@ window.addEventListener("orientationchange", function () {
     let actions = document.getElementById("action_buttons");
     let menu = document.getElementById("menue");
     if (window.innerHeight > window.innerWidth) {
-        oversrceen.classList.add("d-none");
+        oversrceen.style.display = 'none';
         actions.style.display = 'flex';
         menu.style.height = '50%';
     } else {
-        oversrceen.classList.remove("d-none");
+        oversrceen.style.display = 'flex';
         actions.style.display = 'none';
         menu.style.height = '100%';
     }
@@ -102,16 +102,10 @@ window.addEventListener("orientationchange", function () {
  */
 function setMobile() {
     let oversrceen = document.getElementById("show_field");
-    let actions = document.getElementById("action_buttons");
-    let menu = document.getElementById("menue");
     if (window.innerHeight > window.innerWidth) {
-        oversrceen.classList.remove("d-none");
-        actions.style.display = 'none';
-        menu.style.height = '100%';
+        oversrceen.style.display = 'flex';
     } else {
-        oversrceen.classList.add("d-none");
-        actions.style.display = 'flex';
-        menu.style.height = '50%';
+        oversrceen.style.display = 'none';
     }
 };
 

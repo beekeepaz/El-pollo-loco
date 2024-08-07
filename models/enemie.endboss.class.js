@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     y = 20;
     x = 2876;
     acceleration = 0.1;
-    speed = 0.4;
+    speed = 1.2;
 
     IMAGES_WALKING = [
         `img/4_enemie_boss_chicken/1_walk/G1.png`,
@@ -104,6 +104,20 @@ class Endboss extends MovableObject {
         this.setStoppableInterval(this.stopGame, 100);
     }
 
+
+    /**
+     * Moves the boss character in the game based on the current direction.
+     */
+    move() {
+        if (this.world.directionBoss === 'right') {
+            this.x -= this.speed;
+            this.otherDirection = false;
+        } else if (this.world.directionBoss === 'left') {
+            this.x += this.speed;
+            this.otherDirection = true;
+        }
+    }
+
     /**
      * Updates the animation of the object.
      */
@@ -117,7 +131,7 @@ class Endboss extends MovableObject {
      */
     moveInterval() {
         return setInterval(() => {
-            this.moveLeft();
+            this.move();
         }, 1000 / 60);
     }
 

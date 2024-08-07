@@ -17,6 +17,7 @@ class World {
     throwCooldown = 2000;
     intervalIDs = [];
     direction;
+    directionBoss;
     setBar = false;
     attack_sound = new Audio("audio/chicken.mp3");
     attack_boss_sound = new Audio("audio/hit-endboss.mp3");
@@ -69,13 +70,22 @@ class World {
      */
     run() {
         this.setStoppableInterval(this.checkCollisions, 200);
-        this.setStoppableInterval(this.checkCollectCoins, 200);
-        this.setStoppableInterval(this.checkCollectBottles, 200);
+        this.setStoppableInterval(this.checkCollectCoins, 100);
+        this.setStoppableInterval(this.checkCollectBottles, 100);
         this.setStoppableInterval(this.checkThrowObjects, 200);
         this.setStoppableInterval(this.checkThrowCollision, 200);
-        this.setStoppableInterval(this.checkCollisionsAbove, 200);
+        this.setStoppableInterval(this.checkCollisionsAbove, 1000 / 60);
         this.setStoppableInterval(this.checkStatusBarEndboss, 200);
         this.setStoppableInterval(this.gameSound, 200);
+        this.setStoppableInterval(this.directionChangeBigBoss, 200);
+    }
+
+    /**
+     * Changes the direction of the big boss based on the character's position.
+     */
+    directionChangeBigBoss() {
+        this.directionBoss = this.character.x > this.bigboss.x ? 'left' : 'right';
+        console.log(this.directionBoss);
     }
 
     /**
@@ -262,7 +272,7 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isJumping() || this.character.isColliding(this.bigboss)) {
+            if (this.character.isColliding(enemy) && !this.character.isFalling() || this.character.isColliding(this.bigboss)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }

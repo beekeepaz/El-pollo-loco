@@ -197,7 +197,7 @@ class MovableObject extends DrawableObject {
         if (this.isFalling()) {
             return this.x + this.width > enemy.x &&
                 this.y + this.height > enemy.y &&
-                this.x < enemy.x &&
+                this.x < enemy.x + enemy.width &&
                 this.y < enemy.y + enemy.height;
         }
     }
@@ -263,7 +263,7 @@ class MovableObject extends DrawableObject {
     allColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
-            this.x < mo.x &&
+            this.x < mo.x + mo.width &&
             this.y < mo.y + mo.height;
     }
 

@@ -149,7 +149,7 @@ button.impressum-b {
 }
 
 .message-card {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -384,15 +384,17 @@ p.descript {
     background-color: rgb(204, 186, 135);
 }
 
-@media (max-width: 1000px) {
-    /* .action-buttons {
+@media (hover: none) {
+    .action-buttons {
         display: flex;
     }
 
     .menu {
         height: 50%;
-    } */
+    }
+}
 
+@media (max-width: 1000px) {
     .responsive-imp {
         display: flex;
     }
