@@ -5,6 +5,7 @@ let startscreen;
 let endscreen;
 let soundon;
 let soundoff;
+let resetgame;
 let sound = false;
 window.soundEnabled = false;
 window.stopButtonClicked = false;
@@ -21,9 +22,11 @@ function setScreens() {
     endscreen = document.getElementById(`gameover_screen`);
     soundon = document.getElementById(`toggleSoundon`);
     soundoff = document.getElementById(`toggleSoundoff`);
+    resetgame = document.getElementById(`reset`);
     endscreen.classList.add('d-none');
     soundon.classList.add('d-none');
     soundoff.classList.remove(`d-none`);
+    resetgame.classList.add('d-none');
 }
 
 /**
@@ -44,23 +47,11 @@ function gameOverScreen() {
         world = null;
         endscreen = document.getElementById(`gameover_screen`);
         startscreen = document.getElementById(`start_screen`);
+        resetgame = document.getElementById(`reset`);
         canvas.classList.remove('d-block');
         endscreen.classList.remove('d-none');
-        reloadStartScreen();
+        resetgame.classList.remove('d-none');
     }
-}
-
-/**
- * This function hides the end screen and shows the start screen after a delay of 3 seconds.
- */
-function reloadStartScreen() {
-    endscreen = document.getElementById(`gameover_screen`);
-    startscreen = document.getElementById(`start_screen`);
-    setTimeout(() => {
-        endscreen.classList.add('d-none');
-        startscreen.classList.remove('d-none');
-        toggleExitButton();
-    }, 2500);
 }
 
 /**
@@ -80,6 +71,16 @@ function init() {
     window.stopButtonClicked = false;
     initLevel();
     initSettings();
+}
+
+
+/**
+ * restart the game
+ */
+function reset() {
+    resetgame = document.getElementById(`reset`);
+    resetgame.classList.add('d-none');
+    init();
 }
 
 /**
